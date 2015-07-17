@@ -1,5 +1,7 @@
 package com.endovectors.uta.processing.controller;
 
+import com.endovectors.uta.processing.CheckersBoard;
+
 import java.util.Observable;
 
 /**
@@ -10,29 +12,22 @@ public class ProcessingRequestHandler extends Observable implements Runnable {
     private ProcessingDecision processingDecision;
     private boolean request;
 
-    public ProcessingRequestHandler(){
+    public ProcessingRequestHandler() {
         processingDecision = new ProcessingDecision();
         request = false;
     }
 
-    public void getNextMove(){
+    public void getNextMove() {
         System.out.println("getNextMove() " + this);
         request = true;
     }
 
     @Override
     public void run() {
-        System.out.println(request);
-        while(true){
-            if (request == true){
-                System.out.println("test request");
-                request = false;
-                Board board = processingDecision.decide();
-                setChanged();
-                notifyObservers(board);
-                setChanged();
-                notifyObservers(processingDecision.decide(board));
-            }
-        }
+        CheckersBoard board = processingDecision.decide();
+        setChanged();
+        notifyObservers(board);
+        setChanged();
+        notifyObservers(processingDecision.decide(board));
     }
 }

@@ -50,6 +50,6 @@ public class MasterController implements Observer {
 	public void processPresentationResponse(Object arg){
 		//TODO: process response
 		System.out.println("PresentationResponse: " + arg);
-		processingRequestHandler.getNextMove();
+		start();
 	}
 }

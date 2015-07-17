@@ -1,17 +1,24 @@
 package com.endovectors.uta.processing.controller;
 
+import com.endovectors.uta.processing.CheckersBoard;
+import com.endovectors.uta.processing.Move;
 import com.endovectors.uta.processing.move_generator.MoveGeneratorRequestHandler;
+import com.endovectors.uta.processing.move_generator.MoveGeneratorRequestHandlerInterface;
 import com.endovectors.uta.processing.validator.ValidatorRequestHandler;
+import com.endovectors.uta.processing.validator.ValidatorRequestHandlerInterface;
 import com.endovectors.uta.processing.vision.VisionRequestHandler;
+import com.endovectors.uta.processing.vision.VisionRequestHandlerInterface;
+
+import java.util.ArrayList;
 
 /**
  * Created by asham_000 on 7/5/2015.
  */
 public class ProcessingDecision {
 
-    private VisionRequestHandler visionRequestHandler;
-    private ValidatorRequestHandler validatorRequestHandler;
-    private MoveGeneratorRequestHandler moveGeneratorRequestHandler;
+    private VisionRequestHandlerInterface visionRequestHandler;
+    private ValidatorRequestHandlerInterface validatorRequestHandler;
+    private MoveGeneratorRequestHandlerInterface moveGeneratorRequestHandler;
 
     public ProcessingDecision(){
         visionRequestHandler = new VisionRequestHandler();
@@ -19,10 +26,11 @@ public class ProcessingDecision {
         moveGeneratorRequestHandler = new MoveGeneratorRequestHandler();
     }
 
-    public Board decide(){
+    public CheckersBoard decide(){
         return visionRequestHandler.getBoard();
     }
-    public Move decide(CheckersBoard board){
+
+    public ArrayList<Move> decide(CheckersBoard board){
         Boolean result = false;
         try {
             if (board != null) {

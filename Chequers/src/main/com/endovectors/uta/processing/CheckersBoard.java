@@ -52,6 +52,10 @@ public class CheckersBoard implements Cloneable, Serializable {
         return this.pieces;
     }
 
+    public void setPieces(byte[] pieces){
+        this.pieces = pieces;
+    }
+
   public int getCurrentPlayer () {
     return currentPlayer;
   }
@@ -604,7 +608,7 @@ public class CheckersBoard implements Cloneable, Serializable {
         changeSide ();
   }
 
-  public void move (List moves) throws BadMoveException {
+  public void move (List moves){
     Move move;
     Enumeration enu = moves.elements ();
 
@@ -625,19 +629,23 @@ public class CheckersBoard implements Cloneable, Serializable {
   }
 
 
-   private void applyMove (int from, int to) throws BadMoveException {
-     if (!isValidMove (from, to))
-       throw new BadMoveException ();
+   private void applyMove (int from, int to){
+       try{
+           if (!isValidMove (from, to))
+               throw new BadMoveException ();
+           clearPiece (from, to);
+           if (to < 4 && pieces [from] == WHITE)
+               pieces [to] = WHITE_KING;
+           else if (to > 27 && pieces [from] == BLACK)
+               pieces [to] = BLACK_KING;
+           else
+               pieces [to] = pieces [from];
 
-     clearPiece (from, to);
-     if (to < 4 && pieces [from] == WHITE)
-       pieces [to] = WHITE_KING;
-     else if (to > 27 && pieces [from] == BLACK)
-       pieces [to] = BLACK_KING;
-     else
-       pieces [to] = pieces [from];
-
-     pieces [from] = EMPTY;
+           pieces [from] = EMPTY;
+       }
+       catch(Exception e){
+           throw new RuntimeException(e);
+       }
    }
 
 

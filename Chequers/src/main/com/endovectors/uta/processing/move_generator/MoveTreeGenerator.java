@@ -49,7 +49,7 @@ public class MoveTreeGenerator implements MoveTreeGeneratorInterface{
     try {
       return minimax (currentBoard);
     }
-    catch (BadMoveException bad) {
+    catch (Exception bad) {
       bad.printStackTrace ();
       System.exit (-1);
     }
@@ -64,7 +64,7 @@ public class MoveTreeGenerator implements MoveTreeGeneratorInterface{
   /**
    * Implementa o algoritmo minimax
    */
-  private List minimax (CheckersBoard board) throws BadMoveException {
+  private List minimax (CheckersBoard board) {
     List sucessors;
     List move, bestMove = null;
     CheckersBoard nextBoard;
@@ -94,8 +94,7 @@ public class MoveTreeGenerator implements MoveTreeGeneratorInterface{
   /**
    * Implementa a avaliacao da jogada do ponto de vista do jogador MAX
    */
-  private int maxMove (CheckersBoard board, int depth, int alpha, int beta) 
-   throws BadMoveException {
+  private int maxMove (CheckersBoard board, int depth, int alpha, int beta) {
     if (cutOffTest (board, depth))
       return eval (board);
 
@@ -132,8 +131,7 @@ public class MoveTreeGenerator implements MoveTreeGeneratorInterface{
     return alpha;
   }
 
-  private int minMove (CheckersBoard board, int depth, int alpha, int beta)
-   throws BadMoveException {
+  private int minMove (CheckersBoard board, int depth, int alpha, int beta){
     if (cutOffTest (board, depth))
       return eval (board);
 

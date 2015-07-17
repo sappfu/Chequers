@@ -21,17 +21,23 @@ public class MoveFormatter implements MoveFormatterInterface{
         this.moveTreeGenerator = moveTreeGenerator;
     }
 
-    public ArrayList<Move> getMove(CheckersBoard board) throws BadMoveException {
-        if (moveTreeGenerator == null){
-            moveTreeGenerator = new MoveTreeGenerator();
-        }
-        List moves = moveTreeGenerator.getNextMoves(board);
-        Move move;
-        Enumeration enu = moves.elements ();
+    public ArrayList<Move> getMove(CheckersBoard board){
+        List moves;
         ArrayList<Move> list = new ArrayList<Move>();
-        while (enu.hasMoreElements ()) {
-            move = (Move) enu.nextElement ();
-            list.add(move);
+        if (moveTreeGenerator == null){
+            moveTreeGenerator = new MoveTreeGenerator(board);
+        }
+        try {
+            moves = moveTreeGenerator.getNextMoves(board);
+            Move move;
+            Enumeration enu = moves.elements();
+            while (enu.hasMoreElements()) {
+                move = (Move) enu.nextElement();
+                list.add(move);
+            }
+        }
+        catch(Exception e){
+            throw new RuntimeException(e);
         }
         return list;
     }

@@ -14,6 +14,10 @@ public class MoveGeneratorRequestHandler implements MoveGeneratorRequestHandlerI
 
     MoveFormatterInterface moveFormatter;
 
+    public MoveGeneratorRequestHandler(){
+        moveFormatter = new MoveFormatter();
+    }
+
     public MoveGeneratorRequestHandler(MoveFormatterInterface moveFormatter){
         this.moveFormatter = moveFormatter;
     }

@@ -1,22 +1,25 @@
 package com.endovectors.uta.centralcontroller;
 
 
+import com.endovectors.uta.processing.CheckersBoard;
+import com.endovectors.uta.processing.Move;
+
 public class State {
-	private Board board;
+	private CheckersBoard board;
 	private Move nextMove;
 	private boolean grip;
 
 	public State(){
-		board = new Board();
+		board = new CheckersBoard();
 		nextMove = null;
 		grip = false;
 	}
 
-	public Board getBoard() {
+	public CheckersBoard getBoard() {
 		return board;
 	}
 
-	public void setBoard(Board board) {
+	public void setBoard(CheckersBoard board) {
 		this.board = board;
 	}
 

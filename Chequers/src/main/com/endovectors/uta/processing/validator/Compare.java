@@ -45,17 +45,17 @@ public class Compare implements CompareInterface{
         boolean resultTo = false;
         boolean resultFrom = false;
         previousBoard.setCurrentPlayer(2);
-        List moves = previousBoard.legalMoves();
+        List allMoves = previousBoard.legalMoves();
+        List moves = (List) allMoves.pop_front();
         Move temp;
         Enumeration enu = moves.elements ();
-        ArrayList<Move> list = new ArrayList<Move>();
-        while (enu.hasMoreElements ()) {
-            temp = (Move) enu.nextElement ();
-            if(temp.getFrom() == move.getFrom())
-                resultFrom = true;
-            if(temp.getTo() == move.getTo())
-                resultTo = true;
-        }
+        while (enu.hasMoreElements()) {
+                temp = (Move) enu.nextElement();
+                if (temp.getFrom() == move.getFrom())
+                    resultFrom = true;
+                if (temp.getTo() == move.getTo())
+                    resultTo = true;
+            }
         return resultTo&&resultFrom;
     }
 

@@ -18,6 +18,9 @@
  */
 package com.endovectors.uta.presentation;
 
+import com.endovectors.uta.processing.CheckersBoard;
+import com.endovectors.uta.processing.Debug;
+
 import java.util.*;
 
 import java.awt.event.*;
@@ -50,7 +53,7 @@ public class Checkers extends JFrame implements ActionListener {
         System.exit(1);
     }
 
-    view = new BoardView (this, new CheckersBoard (), resources);
+    view = new BoardView (this, new CheckersBoard(), resources);
     getContentPane().add (view, BorderLayout.CENTER);
     
     setDefaultCloseOperation (EXIT_ON_CLOSE);
@@ -98,7 +101,7 @@ public class Checkers extends JFrame implements ActionListener {
     if (event.getSource () == exitOption)
       System.exit (0);
     else if (event.getSource () == restartOption)
-	view.newGame ();
+      System.out.println("test");
     else if (event.getSource () == saveOption) {
 	dlg = new JFileChooser ();
 	if (dlg.showSaveDialog (this) == JFileChooser.APPROVE_OPTION) {
@@ -114,6 +117,6 @@ public class Checkers extends JFrame implements ActionListener {
 	}
     }
     else if (event.getSource () == debugOption)
-	Debug.setDebug (debugOption.getState ());
+	Debug.setDebug(debugOption.getState());
   }
 }
