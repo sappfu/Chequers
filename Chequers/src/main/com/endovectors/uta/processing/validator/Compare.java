@@ -34,7 +34,7 @@ public class Compare implements CompareInterface{
             if (oldBoardArray[i] == 0 && currentBoardArray[i] == 2 || currentBoardArray[i] == 3) {
                 move.setTo(i);
             }
-            if (oldBoardArray[i] == 2 || oldBoardArray[i] == 3 && currentBoardArray[i] == 0) {
+            if ((oldBoardArray[i] == 2 || oldBoardArray[i] == 3) && currentBoardArray[i] == 0) {
                 move.setFrom(i);
             }
         }
@@ -46,16 +46,18 @@ public class Compare implements CompareInterface{
         boolean resultFrom = false;
         previousBoard.setCurrentPlayer(2);
         List allMoves = previousBoard.legalMoves();
-        List moves = (List) allMoves.pop_front();
-        Move temp;
-        Enumeration enu = moves.elements ();
-        while (enu.hasMoreElements()) {
+        while (!allMoves.isEmpty()) {
+            List moves = (List) allMoves.pop_front();
+            Move temp;
+            Enumeration enu = moves.elements();
+            while (enu.hasMoreElements()) {
                 temp = (Move) enu.nextElement();
                 if (temp.getFrom() == move.getFrom())
                     resultFrom = true;
                 if (temp.getTo() == move.getTo())
                     resultTo = true;
             }
+        }
         return resultTo&&resultFrom;
     }
 
