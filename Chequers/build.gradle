@@ -1,0 +1,22 @@
+apply plugin: 'java'
+
+repositories {
+    mavenCentral()
+    maven {
+        url 'http://dl.bintray.com/marytts/marytts'
+    }
+}
+
+dependencies {
+    compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+    testCompile group: 'junit', name: 'junit', version: '4.+'
+    compile group: 'nu.pattern', name: 'opencv', version: '2.4.9-4'
+    compile group: 'de.dfki.mary', name: 'marytts', version: '5.1'
+    compile group: 'de.dfki.mary', name: 'emotionml-checker-java', version: '1.1'
+    compile group: 'de.dfki.mary', name: 'freetts', version: '1.0'
+    compile group: 'de.dfki.mary', name: 'freetts-en_us', version: '1.0'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.3'
+}
