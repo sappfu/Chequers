@@ -1,11 +1,7 @@
 package com.endovectors.uta.presentation.display;
 
-import com.endovectors.uta.presentation.Checkers;
 import com.endovectors.uta.presentation.button.ButtonState;
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
-import com.endovectors.uta.presentation.button.button_one.ButtonOneMenuStateActionListener;
-import com.endovectors.uta.presentation.button.button_three.ButtonThreeMenuStateActionListener;
-import com.endovectors.uta.presentation.button.button_two.ButtonTwoMenuStateActionListener;
 import com.endovectors.uta.presentation.controller.PresentationRequestHandler;
 import com.endovectors.uta.processing.CheckersBoard;
 
