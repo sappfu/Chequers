@@ -15,6 +15,5 @@ public class Main {
 
     private static void setup(){
         masterController = new MasterController();
-        masterController.start();
     }
 }

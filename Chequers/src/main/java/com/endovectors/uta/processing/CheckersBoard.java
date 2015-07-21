@@ -53,7 +53,18 @@ public class CheckersBoard implements Cloneable, Serializable {
     }
 
     public void setPieces(byte[] pieces){
-        this.pieces = pieces;
+        currentPlayer = BLACK;
+        whitePieces = 0;
+        blackPieces = 0;
+        for (int i=0;i < pieces.length;i++){
+            this.pieces[i] = pieces[i];
+            if (this.pieces[i] == 2||this.pieces[i] == 3){
+                whitePieces++;
+            }
+            if (this.pieces[i] == 4||this.pieces[i] == 5) {
+                blackPieces++;
+            }
+        }
     }
 
   public int getCurrentPlayer () {

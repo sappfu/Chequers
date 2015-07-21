@@ -7,8 +7,13 @@ import com.endovectors.uta.processing.CheckersBoard;
  */
 public class VisionRequestHandler implements VisionRequestHandlerInterface {
 
+    DataFormatterInterface dataFormatter;
+
+    public VisionRequestHandler(){
+        dataFormatter = new DataFormatter();
+    }
+
     public CheckersBoard getBoard(){
-        DataFormatter dataFormatter = new DataFormatter();
         return dataFormatter.getBoard();
     }
 

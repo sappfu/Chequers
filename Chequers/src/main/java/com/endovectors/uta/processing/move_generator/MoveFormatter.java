@@ -22,12 +22,16 @@ public class MoveFormatter implements MoveFormatterInterface{
     }
 
     public ArrayList<Move> getMove(CheckersBoard board){
+        if (board == null){
+            System.out.println("board is null");
+        }
         List moves;
         ArrayList<Move> list = new ArrayList<Move>();
         if (moveTreeGenerator == null){
             moveTreeGenerator = new MoveTreeGenerator(board);
         }
         try {
+            CheckersBoard testBoard = new CheckersBoard();
             moves = moveTreeGenerator.getNextMoves(board);
             Move move;
             Enumeration enu = moves.elements();
