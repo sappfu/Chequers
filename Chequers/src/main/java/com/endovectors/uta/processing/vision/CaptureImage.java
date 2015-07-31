@@ -6,7 +6,7 @@
  * Purpose: Identifies colors on a checker board in attempt to determine the state of a game of checkers.
  */
 
-package main.java.com.endovectors.uta.processing.vision;
+package com.endovectors.uta.processing.vision;
 
 
 
@@ -21,11 +21,11 @@ import java.util.*;
 
 public class CaptureImage {
 
-	private final char COLOR_RED = 'r';
-	private final char COLOR_GREEN = 'g';
+	//private final char COLOR_RED = 'r';
+	//private final char COLOR_GREEN = 'g';
 	private final char COLOR_BLUE = 'b';
 	private final char COLOR_ORANGE = 'o';
-	private final char COLOR_YELLOW = 'y';
+	//private final char COLOR_YELLOW = 'y';
 	private final char COLOR_WHITE = 'w';
 	// need to add black, which is currently the default
 	
@@ -142,22 +142,22 @@ public class CaptureImage {
 			// scalar values as (blue, green, red)
 			switch(color)
 			{
-				case COLOR_RED:
+				/*case COLOR_RED:
 					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 255), 3);
 					board[i] = EMPTY;
 					break;
 				case COLOR_GREEN:
 					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 0), 3);
 					board[i] = EMPTY;
-					break;
+					break;*/
 				case COLOR_BLUE:
 					Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 3);
 					board[i] = SYSTEM; // system's piece
 					break;
-				case COLOR_YELLOW:
+				/*case COLOR_YELLOW:
 					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 255), 3);
 					board[i] = EMPTY;
-					break;
+					break;*/
 				case COLOR_ORANGE:
 					Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 3);
 					board[i] = END_USER; // end user's piece
@@ -188,66 +188,6 @@ public class CaptureImage {
 				rowNum++;
 			}
 		}
-		
-		/*
-		rowNum = 0; // starting row number for capture squares
-		offset = hsegment * 0;
-		count = 0;
-		// keep track of captured squares
-		// left: end user, right: system
-		for (int i = 0; i < capSquares; i++)
-		{	
-			// find where roi should be
-			Point p1 = new Point(offset + count * hsegment, rowNum * vsegment); // top left point of rectangle (x,y)
-			Point p2 = new Point(offset + (count + 1) * hsegment, (rowNum + 1) * vsegment); // bottom right point of rectangle (x,y)
-			// create rectangle that is board square
-			Rect bound = new Rect(p1, p2);
-			
-			char color;
-			
-			// frame only includes rectangle
-			Mat roi = new Mat(out, bound);
-			
-			// get the color
-			color = identifyColor(roi);
-			
-			switch(color)
-			{
-				case COLOR_RED:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 255), 3);
-					break;
-				case COLOR_GREEN:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 0), 3);
-					break;
-				case COLOR_BLUE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 3);
-					break;
-				case COLOR_YELLOW:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 255), 3);
-					break;
-				case COLOR_ORANGE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 3);
-					break;
-				case COLOR_WHITE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 3);
-					break;
-				default: // this is black
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 3);
-					break;
-			}
-			
-			count++;
-			if (count == 1)
-			{
-				offset = hsegment * 10 + 50;
-			}
-			else if (count == 2)
-			{
-				count = 0;
-				offset = hsegment * 10;
-				rowNum++;
-			}
-		}*/
 	}
 	
 	/**
@@ -335,18 +275,19 @@ public class CaptureImage {
 		
 		
 		// define the reference color values
-		double RED[] = {0.4, 0.5, 1.8};
-		double GREEN[] = {1.0, 1.2, 1.0};
+		//double RED[] = {0.4, 0.5, 1.8};
+		//double GREEN[] = {1.0, 1.2, 1.0};
 		double BLUE[] = {1.75, 1.0, 0.5};
-		double YELLOW[] = {0.82, 1.7, 1.7};
+		//double YELLOW[] = {0.82, 1.7, 1.7};
 		double ORANGE[] = {0.2, 1.0, 2.0};
 		double WHITE[] = {2.0, 1.7, 1.7};
 		
 		// compute the square error relative to the reference color values
-		double minError = 3.0;
+		//double minError = 3.0;
+		double minError = 6.0;
 		double errorSqr;
 		char bestFit = 'x';
-		
+		/*
 		// check RED fitness
 		errorSqr = normSqr(RED[0], RED[1], RED[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
@@ -360,21 +301,21 @@ public class CaptureImage {
 		{
 			minError = errorSqr;
 			bestFit = COLOR_GREEN;
-		}
+		}*/
 		// check BLUE fitness
 		errorSqr = normSqr(BLUE[0], BLUE[1], BLUE[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
 			bestFit = COLOR_BLUE;
-		}
+		}/*
 		// check YELLOW fitness
 		errorSqr = normSqr(YELLOW[0], YELLOW[1], YELLOW[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
 			bestFit = COLOR_YELLOW;
-		}
+		}*/
 		// check ORANGE fitness
 		errorSqr = normSqr(ORANGE[0], ORANGE[1], ORANGE[2], bavg, gavg, ravg);
 		if(errorSqr < minError)

@@ -5,6 +5,7 @@ import com.endovectors.uta.presentation.button.button_one.ButtonOneMenuStateActi
 import com.endovectors.uta.presentation.button.button_three.ButtonThreeMenuStateActionListener;
 import com.endovectors.uta.presentation.button.button_two.ButtonTwoMenuStateActionListener;
 import com.endovectors.uta.presentation.display.GUI;
+import com.endovectors.uta.processing.CheckersBoard;
 
 import java.awt.event.ActionEvent;
 import java.util.Observable;
@@ -12,18 +13,40 @@ import java.util.Observable;
 /**
  * Created by asham_000 on 7/5/2015.
  */
-public class PresentationRequestHandler extends Observable implements Runnable{
+public class PresentationRequestHandler extends Observable implements Runnable, MoveType{
 
-    GUI gui;
+    GUI gui; // I want to change this to static
+    private static GUI g; // added
+    CheckersBoard board;
 
     public PresentationRequestHandler(){
 
         gui = new GUI(this);
+        setGui(gui); // added
+    }
+    
+    public void setGui(GUI gu) // added
+    {
+    	g = gu;
+    }
+    
+    public static GUI getGui() // added
+    {
+    	return g;
+    }
+    
+    public void setBoard(CheckersBoard b)
+    {
+    	board = b;
     }
 
     @Override
-    public void run() {
-
+    public void run()
+    {
+    	/*MessageResult r = new MessageResult(NO_MOVE); // needs to be based on result from processing
+    	MessageFormatter m = new MessageFormatter(r);
+    	Selection s = new Selection(m);
+    	s.send(board);*/
     }
 
     public void startGame(){

@@ -4,6 +4,7 @@ import com.endovectors.uta.hardware.HardwareRequestHandler;
 import com.endovectors.uta.hardware.HardwareRequestHandlerInterface;
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
 import com.endovectors.uta.presentation.controller.PresentationRequestHandler;
+import com.endovectors.uta.processing.CheckersBoard;
 import com.endovectors.uta.processing.List;
 import com.endovectors.uta.processing.controller.ProcessingRequestHandler;
 
@@ -30,15 +31,20 @@ public class MasterController implements Observer {
 		hardwareRequestHandler.addObserver(this);
 	}
 
-	
+	// why are they all threads[0]
 	public void startProcessing() {
 		threads[0] = new Thread(processingRequestHandler);
 		threads[0].start();
 	}
 
 	public void startHardware(){
-		threads[0] = new Thread(hardwareRequestHandler);
-		threads[0].start();
+		threads[1] = new Thread(hardwareRequestHandler);
+		threads[1].start();
+	}
+	
+	public void startPresentation(){
+		threads[2] = new Thread(presentationRequestHandler);
+		threads[2].start();
 	}
 
 	public State getState(){
@@ -63,6 +69,10 @@ public class MasterController implements Observer {
 		System.out.println("ProcessingResponse: " + arg);
 		if (arg.getClass() == ArrayList.class){
 			startHardware();
+		}
+		else if (arg.getClass() == CheckersBoard.class)
+		{
+			presentationRequestHandler.setBoard((CheckersBoard)arg);
 		}
 
 	}

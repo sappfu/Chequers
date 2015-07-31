@@ -41,7 +41,8 @@ public class BoardView extends JPanel {
    int startY;
 
   int cellWidth;
-
+  
+  Graphics graph; // added
 
   List selected;
 
@@ -56,7 +57,7 @@ public class BoardView extends JPanel {
   private MouseHandler handler;
   
 
-
+  // need to get rid of mouse handler and listener
   public BoardView (JFrame parentComponent, CheckersBoard b) {
     selected = new List ();
     board = b;
@@ -144,6 +145,8 @@ public class BoardView extends JPanel {
     startX = marginX;
     startY = marginY;
     cellWidth = incValue;
+    
+    graph = g; // added
 
     drawBoard (g, marginX, marginY, incValue);
     drawPieces (g, marginX, marginY, incValue);
@@ -211,7 +214,10 @@ public class BoardView extends JPanel {
       }
   }
 
-  private void drawPieces (Graphics g, int marginX, int marginY, int incValue, CheckersBoard board) {
+
+  
+  // made it public from private
+  public void drawPieces (Graphics g, int marginX, int marginY, int incValue, CheckersBoard board) {
     int x, y;
     for (int i = 0; i < 32; i++)
       try {
@@ -266,7 +272,6 @@ class MouseHandler extends MouseAdapter {
     boards = new Stack ();
   }
 
-  
   public void mouseClicked (MouseEvent e) {
     int pos;
    
