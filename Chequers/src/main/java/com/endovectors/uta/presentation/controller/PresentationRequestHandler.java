@@ -5,6 +5,7 @@ import com.endovectors.uta.presentation.button.button_one.ButtonOneMenuStateActi
 import com.endovectors.uta.presentation.button.button_three.ButtonThreeMenuStateActionListener;
 import com.endovectors.uta.presentation.button.button_two.ButtonTwoMenuStateActionListener;
 import com.endovectors.uta.presentation.display.GUI;
+import com.endovectors.uta.presentation.voice.VoiceTest;
 
 import java.awt.event.ActionEvent;
 import java.util.Observable;
@@ -15,10 +16,12 @@ import java.util.Observable;
 public class PresentationRequestHandler extends Observable implements Runnable{
 
     GUI gui;
+    VoiceTest voiceTest;
 
     public PresentationRequestHandler(){
 
         gui = new GUI(this);
+        voiceTest = new VoiceTest();
     }
 
     @Override
