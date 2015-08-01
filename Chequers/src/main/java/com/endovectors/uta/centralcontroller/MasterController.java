@@ -4,7 +4,11 @@ import com.endovectors.uta.hardware.HardwareRequestHandler;
 import com.endovectors.uta.hardware.HardwareRequestHandlerInterface;
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
 import com.endovectors.uta.presentation.controller.PresentationRequestHandler;
+import com.endovectors.uta.presentation.voice.speech_patterns.SpeechEnum;
+import com.endovectors.uta.processing.InvalidMove;
 import com.endovectors.uta.processing.List;
+import com.endovectors.uta.processing.Move;
+import com.endovectors.uta.processing.MoveInterface;
 import com.endovectors.uta.processing.controller.ProcessingRequestHandler;
 
 import java.util.ArrayList;
@@ -15,13 +19,12 @@ public class MasterController implements Observer {
 	
 	Thread[] threads = new Thread[4];
 
-	private State state;
+	private State state = null;
 	private ProcessingRequestHandler processingRequestHandler;
 	private PresentationRequestHandler presentationRequestHandler;
 	private HardwareRequestHandler hardwareRequestHandler;
 
 	public MasterController(){
-		state = new State();
 		processingRequestHandler = new ProcessingRequestHandler();
 		presentationRequestHandler = new PresentationRequestHandler();
 		hardwareRequestHandler = new HardwareRequestHandler();
@@ -62,15 +65,38 @@ public class MasterController implements Observer {
 		//TODO: process response
 		System.out.println("ProcessingResponse: " + arg);
 		if (arg.getClass() == ArrayList.class){
-			startHardware();
+			ArrayList<MoveInterface> result = (ArrayList<MoveInterface>)arg;
+			state.setNextMoves(result);
+			if(result.get(0).getClass() == Move.class){
+				startHardware();
+			}
+			if(result.get(0).getClass() == InvalidMove.class){
+				presentationRequestHandler.speak(SpeechEnum.invalidMove);
+				presentationRequestHandler.notifyInvalidMove();
+			}
+
 		}
 
 	}
 
 	public void processPresentationResponse(Object arg){
-		//TODO: process response
-		System.out.println("PresentationResponse: " + arg);
-		startProcessing();
+		ButtonStatesEnum enu = (ButtonStatesEnum)arg;
+		switch(enu){
+			case WAIT_STATE:
+				presentationRequestHandler.speak(SpeechEnum.waitingOnProcessing);
+				break;
+			case PLAY_STATE:
+				if (state == null){
+					state = new State();
+				}
+				presentationRequestHandler.speak(SpeechEnum.waitingOnProcessing);
+				startProcessing();
+				break;
+			case MENU_STATE:
+				state.stopWriter();
+				state = null;
+				break;
+		}
 	}
 
 	public void processHardwareResponse(Object arg){

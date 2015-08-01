@@ -3,6 +3,7 @@ package com.endovectors.uta.processing.com.endovectors.uta.processing.move_gener
 import com.endovectors.uta.processing.CheckersBoard;
 import com.endovectors.uta.processing.List;
 import com.endovectors.uta.processing.Move;
+import com.endovectors.uta.processing.MoveInterface;
 import com.endovectors.uta.processing.move_generator.MoveFormatter;
 import com.endovectors.uta.processing.move_generator.MoveFormatterInterface;
 import com.endovectors.uta.processing.move_generator.MoveTreeGenerator;
@@ -37,7 +38,7 @@ public class MoveFormatterTest extends TestCase{
     public void testGetMove(){
         try {
             moveFormatter = new MoveFormatter();
-            ArrayList<Move> formattedMoves = moveFormatter.getMove(board);
+            ArrayList<MoveInterface> formattedMoves = moveFormatter.getMove(board);
             Move move;
             Enumeration enu = moves.elements();
             int i=0;

@@ -1,5 +1,6 @@
 package com.endovectors.uta.presentation.voice;
 
+import com.endovectors.uta.presentation.voice.speech_patterns.SpeechEnum;
 import junit.framework.TestCase;
 
 /**
@@ -7,9 +8,10 @@ import junit.framework.TestCase;
  */
 public class VoiceTester extends TestCase {
 
-    VoiceTest voiceTest;
+
+
     public void testSpeak(){
-        voiceTest = new VoiceTest();
-        voiceTest.speak("Hello world");
+        VoiceSelector.getInstance().setSpeech(SpeechEnum.waitingOnProcessing);
+        VoiceSelector.getInstance().outputSpeech();
     }
 }

@@ -1,9 +1,6 @@
 package com.endovectors.uta.processing.move_generator;
 
-import com.endovectors.uta.processing.BadMoveException;
-import com.endovectors.uta.processing.CheckersBoard;
-import com.endovectors.uta.processing.Move;
-import com.endovectors.uta.processing.List;
+import com.endovectors.uta.processing.*;
 
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -21,12 +18,12 @@ public class MoveFormatter implements MoveFormatterInterface{
         this.moveTreeGenerator = moveTreeGenerator;
     }
 
-    public ArrayList<Move> getMove(CheckersBoard board){
+    public ArrayList<MoveInterface> getMove(CheckersBoard board){
         if (board == null){
             System.out.println("board is null");
         }
         List moves;
-        ArrayList<Move> list = new ArrayList<Move>();
+        ArrayList<MoveInterface> list = new ArrayList<MoveInterface>();
         if (moveTreeGenerator == null){
             moveTreeGenerator = new MoveTreeGenerator(board);
         }

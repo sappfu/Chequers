@@ -1,27 +1,28 @@
 package com.endovectors.uta.presentation.controller;
 
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
-import com.endovectors.uta.presentation.button.button_one.ButtonOneMenuStateActionListener;
-import com.endovectors.uta.presentation.button.button_three.ButtonThreeMenuStateActionListener;
-import com.endovectors.uta.presentation.button.button_two.ButtonTwoMenuStateActionListener;
 import com.endovectors.uta.presentation.display.GUI;
-import com.endovectors.uta.presentation.voice.VoiceTest;
+import com.endovectors.uta.presentation.voice.VoiceGenerator;
+import com.endovectors.uta.presentation.voice.VoiceSelector;
+import com.endovectors.uta.presentation.voice.speech_patterns.SpeechEnum;
 
-import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
-/**
- * Created by asham_000 on 7/5/2015.
- */
 public class PresentationRequestHandler extends Observable implements Runnable{
 
     GUI gui;
-    VoiceTest voiceTest;
+    Thread thread = null;
+    VoiceSelector voiceSelector;
+    ArrayList<SpeechEnum> nextPhrases;
 
     public PresentationRequestHandler(){
-
+        voiceSelector = new VoiceSelector(this);
         gui = new GUI(this);
-        voiceTest = new VoiceTest();
+        nextPhrases = new ArrayList<SpeechEnum>();
+        thread = new Thread(voiceSelector);
+        thread.start();
     }
 
     @Override
@@ -30,7 +31,9 @@ public class PresentationRequestHandler extends Observable implements Runnable{
     }
 
     public void startGame(){
-        gui.setButtonState(ButtonStatesEnum.PLAY_STATE);
+        setChanged();
+        notifyObservers(ButtonStatesEnum.PLAY_STATE);
+        setButtonState(ButtonStatesEnum.PLAY_STATE);
     }
 
     public void continueGame(){
@@ -38,7 +41,9 @@ public class PresentationRequestHandler extends Observable implements Runnable{
     }
 
     public void endGame(){
-        gui.setButtonState(ButtonStatesEnum.MENU_STATE);
+        setChanged();
+        notifyObservers(ButtonStatesEnum.MENU_STATE);
+        setButtonState(ButtonStatesEnum.MENU_STATE);
     }
 
     public void pauseGame(){
@@ -46,12 +51,30 @@ public class PresentationRequestHandler extends Observable implements Runnable{
     }
 
     public void endTurn() {
-        gui.setButtonState(ButtonStatesEnum.WAIT_STATE);
         setChanged();
         notifyObservers(ButtonStatesEnum.WAIT_STATE);
+        setButtonState(ButtonStatesEnum.WAIT_STATE);
     }
 
     public void setButtonState(ButtonStatesEnum state){
         gui.setButtonState(state);
+    }
+
+    public void speak(SpeechEnum speech){
+        nextPhrases.add(speech);
+    }
+
+    public SpeechEnum getNextPhrase(){
+        SpeechEnum enu = nextPhrases.get(0);
+        nextPhrases.remove(0);
+        return enu;
+    }
+
+    public int getNextPhrasesLength(){
+        return nextPhrases.size();
+    }
+
+    public void notifyInvalidMove(){
+        //TODO process invalid move
     }
 }

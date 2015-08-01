@@ -25,7 +25,7 @@
 
 package com.endovectors.uta.processing;
 
-public class Move {
+public class Move implements MoveInterface{
  
 
   private int from;
@@ -55,7 +55,8 @@ public class Move {
     return "(" + from + "," + to + ")";
   }
 
-  public boolean compare(Move move){
+  public boolean compare(MoveInterface m){
+    Move move = (Move) m;
     return move.from == this.from && move.to == this.to;
   }
 }

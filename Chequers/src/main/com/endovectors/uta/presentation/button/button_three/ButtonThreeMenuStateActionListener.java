@@ -1,4 +1,4 @@
-package com.endovectors.uta.presentation.display;
+package com.endovectors.uta.presentation.button.button_three;
 
 import com.endovectors.uta.presentation.controller.PresentationRequestHandler;
 
@@ -6,18 +6,18 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by asham_000 on 7/5/2015.
+ * Created by asham_000 on 7/19/2015.
  */
-public class DisplayActionListener implements ActionListener{
+public class ButtonThreeMenuStateActionListener implements ActionListener {
 
     PresentationRequestHandler presentationRequestHandler;
 
-    public DisplayActionListener(PresentationRequestHandler presentationRequestHandler){
+    public ButtonThreeMenuStateActionListener(PresentationRequestHandler presentationRequestHandler){
         this.presentationRequestHandler = presentationRequestHandler;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        presentationRequestHandler.buttonClicked(e);
+        System.out.println("Button3 pressed");
     }
 }
