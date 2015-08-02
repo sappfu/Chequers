@@ -43,10 +43,10 @@ public class PresentationRequestHandler extends Observable implements Runnable, 
     @Override
     public void run()
     {
-    	/*MessageResult r = new MessageResult(NO_MOVE); // needs to be based on result from processing
+    	MessageResult r = new MessageResult(NO_MOVE); // needs to be based on result from processing
     	MessageFormatter m = new MessageFormatter(r);
     	Selection s = new Selection(m);
-    	s.send(board);*/
+    	s.send(board);
     }
 
     public void startGame(){

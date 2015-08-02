@@ -8,20 +8,19 @@ import javax.swing.JPanel;
 
 public class Face extends JPanel
 {	
-	public Face()
-	{
-		repaint();
-	}
-	
 	public void paintComponent(Graphics g)
 	{
-		Dimension d = getSize ();
+		super.paintComponent(g);
+		
+		//Dimension d = getSize ();
+		int height = getHeight();
+		int width = getWidth();
 		
 		g.setColor(Color.lightGray);
-		g.fillOval(d.width / 2, d.height / 2, d.width, d.height);
+		g.fillOval(width / 10, height / 10, width - width / 10, height - height / 10);
 		g.setColor(Color.RED);
-		g.fillRect(d.width / 2 - d.width / 3, d.height / 2 + d.height / 2, d.width / 5, d.height / 12); // left eye
-		g.fillRect(d.width / 2 + d.width / 3, d.height / 2 + d.height / 2, d.width / 5, d.height / 12); // right eye
-		g.drawRect(d.width, d.height - d.height / 3, d.width / 2, d.height/ 12); // mouth
+		g.fillRect(width / 4, height / 10 + height / 4, width / 10, height / 60); // left eye
+		g.fillRect(width - width / 4, height / 10 + height / 4, width / 10, height / 60); // right eye
+		g.fillRect(width / 4, height / 2 + height / 8, width / 2 + width / 10, height/ 75); // mouth
 	}
 }

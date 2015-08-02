@@ -26,28 +26,36 @@ public class Selection implements MoveType
 	
 	public void send(CheckersBoard b)
 	{
-		// call on method from destination(s)
-		// presentation request handler in master controller
-		//String to[] = m.getInstruction().getDestinations();
-		//for (int i = 0; i < to.length; i++)
-		//{
-			/*if (to[i].equals("Master Controller"))
-			{
-				// determine what to send to master controller
-				MasterController controller = new MasterController();
-				controller.startProcessing();
-			}*/ // this will never be needed
-			
-			//if (to[i].equals("Voice"))
-			//{
-				VoiceSelector select = new VoiceSelector(type);
-				select.play();
-			//}
-			//else if (to[i].equals("Display"))
-			//{
-				// change state of gui
-				this.gui.changeDisplay(b);
-			//}
-		//}
+
+		VoiceSelector select = new VoiceSelector(type);
+		if (b == null)
+		{
+			this.gui.changeToFace();
+			//select.play();
+			try
+	    	{
+	    	    Thread.sleep(3000); // let face "talk" for 3 seconds
+	    	}
+	    	catch(InterruptedException ex)
+	    	{
+	    	    Thread.currentThread().interrupt();
+	    	}
+			this.gui.changeToBoth();
+		}
+		else
+		{
+			this.gui.changeToFace();
+			//select.play();
+			try
+	    	{
+	    	    Thread.sleep(3000); // let face "talk" for 3 seconds
+	    	}
+	    	catch(InterruptedException ex)
+	    	{
+	    	    Thread.currentThread().interrupt();
+	    	}
+			this.gui.changeBoard(b);
+			this.gui.changeToBoth();
+		}
 	}
 }

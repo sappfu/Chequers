@@ -36,30 +36,39 @@ public class GUI extends JFrame {
         setVisible(true);
         */
         
-        //this.setLayout(new CardLayout());
+        this.setLayout(new GridLayout());
+        
+        
         
         view = new BoardView(this, new CheckersBoard());
+        //add(view);
         buttonState = new ButtonState(presentationRequestHandler);
+        //add(buttonState);
         
-        JPanel both = new JPanel(new GridLayout(1,0));
-        JPanel rightHalf = new JPanel();
+        JPanel both = new JPanel(new GridLayout(1,2));        
+        
         JPanel face = new JPanel();
         face.add(new Face());
-        rightHalf.add(buttonState);
+        
+        JPanel rightHalf = new JPanel(new BorderLayout());
+        rightHalf.add(buttonState, BorderLayout.NORTH);
         rightHalf.add(view);
-        both.add(face);
+        both.add(new Face());
         both.add(rightHalf);
-        cards = new JPanel(new CardLayout());
+        
+        cl = new CardLayout();
+        cards = new JPanel(cl);
         cards.add(both, "Both");
         cards.add(face, "Face");
         
-        cl = (CardLayout)cards.getLayout();
         cl.show(cards, "Both");
         
-        getContentPane().add(cards);
+        //getContentPane().add(cards);
+        add(cards);
         
-        this.setSize(600, 800);
+        this.setSize(800, 800);
         setVisible(true);
+        
     }
 
     public void setButtonState(ButtonStatesEnum state){
@@ -70,31 +79,24 @@ public class GUI extends JFrame {
     {
     	return this.view;
     }
-
-    // create method to change display
-    // probably not necessary; could do this in board view
-    public void changeDisplay(CheckersBoard b)
+    
+    public void changeBoard(CheckersBoard b)
     {
-    	Graphics g = this.getBoard().graph;
+    	Graphics g = this.getBoard().graph; // not sure this is right
     	int marginX = this.getBoard().startX;
     	int marginY = this.getBoard().startY;
     	int incValue = this.getBoard().cellWidth;
     	CheckersBoard board = b;
     	this.getBoard().drawPieces(g, marginX, marginY, incValue, board);
-    	
-    	cl.show(cards, "Face"); // show face for when it is talking
-    	
-    	
-    	// not sure this is the right way to do it
-    	try
-    	{
-    	    Thread.sleep(5000); // let face "talk" for 5 seconds
-    	}
-    	catch(InterruptedException ex)
-    	{
-    	    Thread.currentThread().interrupt();
-    	}
-    	
-    	cl.show(cards, "Both"); // go back to show board and face
+    }
+    
+    public void changeToFace()
+    {
+    	cl.show(cards, "Face");
+    }
+    
+    public void changeToBoth()
+    {
+    	cl.show(cards, "Both");
     }
 }
