@@ -13,12 +13,6 @@ apply plugin: 'maven'
 
 repositories {
     mavenCentral()
-    maven {
-        url 'http://dl.bintray.com/marytts/marytts'
-    }
-    maven {
-        url 'http://repo.spring.io/libs-release-remote'
-    }
 }
 
 version = '0.1'
