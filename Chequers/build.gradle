@@ -1,7 +1,18 @@
+buildscript {
+    apply plugin: 'java'
+    apply plugin: 'maven'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+
 apply plugin: 'java'
 apply plugin: 'maven'
 
 repositories {
+    mavenCentral()
     maven {
         url 'http://dl.bintray.com/marytts/marytts'
     }
