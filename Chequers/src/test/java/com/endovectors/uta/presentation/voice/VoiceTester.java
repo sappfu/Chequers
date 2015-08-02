@@ -11,7 +11,7 @@ public class VoiceTester extends TestCase {
 
 
     public void testSpeak(){
-        VoiceSelector.getInstance().setSpeech(SpeechEnum.waitingOnProcessing);
-        VoiceSelector.getInstance().outputSpeech();
+        VoiceSelector voiceSelector = new VoiceSelector();
+        voiceSelector.setSpeech(SpeechEnum.waitingOnProcessing);
     }
 }

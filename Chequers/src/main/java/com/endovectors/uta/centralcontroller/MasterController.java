@@ -84,6 +84,7 @@ public class MasterController implements Observer {
 		switch(enu){
 			case WAIT_STATE:
 				presentationRequestHandler.speak(SpeechEnum.waitingOnProcessing);
+				startProcessing();
 				break;
 			case PLAY_STATE:
 				if (state == null){

@@ -75,6 +75,6 @@ public class PresentationRequestHandler extends Observable implements Runnable{
     }
 
     public void notifyInvalidMove(){
-        //TODO process invalid move
+        setButtonState(ButtonStatesEnum.PLAY_STATE);
     }
 }
