@@ -14,6 +14,7 @@ public class Main {
     }
 
     private static void setup(){
+        System.setProperty("java.library.path", System.getProperty("user.dir"));
         masterController = new MasterController();
     }
 }

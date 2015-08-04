@@ -80,14 +80,20 @@ public class GUI extends JFrame {
     	return this.view;
     }
     
+    /*// not sure this is right
     public void changeBoard(CheckersBoard b)
     {
-    	Graphics g = this.getBoard().graph; // not sure this is right
+    	Graphics g = this.getBoard().graph; // this might be wrong
     	int marginX = this.getBoard().startX;
     	int marginY = this.getBoard().startY;
     	int incValue = this.getBoard().cellWidth;
     	CheckersBoard board = b;
-    	this.getBoard().drawPieces(g, marginX, marginY, incValue, board);
+    	this.getBoard().drawPieces(g, marginX, marginY, incValue, board); // this might be wrong
+    }*/
+    
+    public void setBoard(CheckersBoard b)
+    {
+    	this.view.setBoard(b);
     }
     
     public void changeToFace()

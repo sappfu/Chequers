@@ -117,6 +117,11 @@ public class BoardView extends JPanel {
     }    
   }
   
+  public void setBoard(CheckersBoard b)
+  {
+	  this.board = b;
+	  repaint();
+  }
   
   public void paintComponent (Graphics g) {
     Dimension d = getSize ();
@@ -146,10 +151,12 @@ public class BoardView extends JPanel {
     startY = marginY;
     cellWidth = incValue;
     
-    graph = g; // added
+    //graph = g; // added
 
     drawBoard (g, marginX, marginY, incValue);
-    drawPieces (g, marginX, marginY, incValue);
+    drawPieces (g, marginX, marginY, incValue, board);
+    // might need to change to drawPieces with board in parameters
+    // would need to have a setBoard method
   }
 
 
@@ -217,7 +224,7 @@ public class BoardView extends JPanel {
 
   
   // made it public from private
-  public void drawPieces (Graphics g, int marginX, int marginY, int incValue, CheckersBoard board) {
+  private void drawPieces (Graphics g, int marginX, int marginY, int incValue, CheckersBoard board) {
     int x, y;
     for (int i = 0; i < 32; i++)
       try {

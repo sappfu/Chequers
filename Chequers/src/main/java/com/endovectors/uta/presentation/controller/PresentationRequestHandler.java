@@ -1,13 +1,18 @@
 package com.endovectors.uta.presentation.controller;
 
+import com.endovectors.uta.centralcontroller.Alarm;
+import com.endovectors.uta.centralcontroller.MasterController;
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
 import com.endovectors.uta.presentation.button.button_one.ButtonOneMenuStateActionListener;
 import com.endovectors.uta.presentation.button.button_three.ButtonThreeMenuStateActionListener;
 import com.endovectors.uta.presentation.button.button_two.ButtonTwoMenuStateActionListener;
 import com.endovectors.uta.presentation.display.GUI;
+import com.endovectors.uta.presentation.voice.VoiceSelector;
+import com.endovectors.uta.presentation.voice.speech_patterns.SpeechEnum;
 import com.endovectors.uta.processing.CheckersBoard;
 
 import java.awt.event.ActionEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 
 /**
@@ -18,11 +23,20 @@ public class PresentationRequestHandler extends Observable implements Runnable, 
     GUI gui; // I want to change this to static
     private static GUI g; // added
     CheckersBoard board;
+    
+    Thread thread = null;
+    VoiceSelector voiceSelector;
+    ArrayList<SpeechEnum> nextPhrases;
 
     public PresentationRequestHandler(){
 
         gui = new GUI(this);
         setGui(gui); // added
+        
+        voiceSelector = new VoiceSelector(this);
+        nextPhrases = new ArrayList<SpeechEnum>();
+        thread = new Thread(voiceSelector);
+        thread.start();
     }
     
     public void setGui(GUI gu) // added
@@ -43,35 +57,61 @@ public class PresentationRequestHandler extends Observable implements Runnable, 
     @Override
     public void run()
     {
-    	MessageResult r = new MessageResult(NO_MOVE); // needs to be based on result from processing
-    	MessageFormatter m = new MessageFormatter(r);
-    	Selection s = new Selection(m);
+    	//MessageResult r = new MessageResult(NO_MOVE); // needs to be based on result from processing
+    	//MessageFormatter m = new MessageFormatter(r);
+    	Selection s = new Selection();
     	s.send(board);
     }
 
     public void startGame(){
-        gui.setButtonState(ButtonStatesEnum.PLAY_STATE);
+        setChanged();
+        notifyObservers(ButtonStatesEnum.PLAY_STATE);
+        setButtonState(ButtonStatesEnum.PLAY_STATE);
     }
 
-    public void continueGame(){
-
+    public void continueGame()
+    {
+    	setButtonState(ButtonStatesEnum.PLAY_STATE);
+    	MasterController.getTimer().schedule(new Alarm(this), 30000, 30000);
     }
 
     public void endGame(){
-        gui.setButtonState(ButtonStatesEnum.MENU_STATE);
+        setChanged();
+        notifyObservers(ButtonStatesEnum.MENU_STATE);
+        setButtonState(ButtonStatesEnum.MENU_STATE);
     }
 
-    public void pauseGame(){
-
+    public void pauseGame() // can the game be paused during the system's turn?
+    {
+    	setButtonState(ButtonStatesEnum.MENU_STATE);
+    	MasterController.getTimer().cancel();
     }
 
     public void endTurn() {
-        gui.setButtonState(ButtonStatesEnum.WAIT_STATE);
         setChanged();
         notifyObservers(ButtonStatesEnum.WAIT_STATE);
+        setButtonState(ButtonStatesEnum.WAIT_STATE);
     }
 
     public void setButtonState(ButtonStatesEnum state){
         gui.setButtonState(state);
+    }
+
+    public void speak(SpeechEnum speech){
+        nextPhrases.add(speech);
+    }
+
+    public SpeechEnum getNextPhrase(){
+        SpeechEnum enu = nextPhrases.get(0);
+        nextPhrases.remove(0);
+        return enu;
+    }
+
+    public int getNextPhrasesLength(){
+        return nextPhrases.size();
+    }
+
+    public void notifyInvalidMove(){
+        setButtonState(ButtonStatesEnum.PLAY_STATE);
     }
 }

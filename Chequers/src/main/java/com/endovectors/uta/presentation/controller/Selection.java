@@ -11,23 +11,23 @@ import com.endovectors.uta.processing.CheckersBoard;
  */
 public class Selection implements MoveType
 {
-	private int type = 0;
+	//private int type = 0;
 	private GUI gui;
 	
-	public Selection(MessageFormatter m)
+	public Selection()
 	{
-		if (m.getResult() == null)
+		/*if (m.getResult() == null)
 			type = NO_MOVE;
 		else
 			type = m.getResult().getMove();
-		
+		*/
 		gui = PresentationRequestHandler.getGui();
 	}
 	
 	public void send(CheckersBoard b)
 	{
 
-		VoiceSelector select = new VoiceSelector(type);
+		//VoiceSelector select = new VoiceSelector(type);
 		if (b == null)
 		{
 			this.gui.changeToFace();
@@ -54,7 +54,8 @@ public class Selection implements MoveType
 	    	{
 	    	    Thread.currentThread().interrupt();
 	    	}
-			this.gui.changeBoard(b);
+			//this.gui.changeBoard(b);
+			this.gui.setBoard(b); // changed to this
 			this.gui.changeToBoth();
 		}
 	}

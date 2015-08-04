@@ -19,6 +19,6 @@ public class ValidatorRequestHandler implements ValidatorRequestHandlerInterface
         if (compare == null){
             compare = new Compare();
         }
-        return true;//compare.compare(board);
+        return false;//compare.compare(board);
     }
 }
