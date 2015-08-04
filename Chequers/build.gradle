@@ -17,7 +17,7 @@ dependencies {
     compile 'org.mobicents.external.freetts:cmulex:1.0'
     compile 'org.mobicents.external.freetts:cmutimelex:1.0'
     compile 'org.mobicents.external.freetts:en_us:1.0'
-    compile files('/home/pi/opencv-2.4.10/build/opencv-2410.jar')
+    compile files('../../opencv-2.4.10/build/bin/opencv-2410.jar')
 }
 
 task('copyTask', type: Copy)
