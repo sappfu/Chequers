@@ -165,7 +165,7 @@ public class DataConverter implements DataConverterInterface {
                         board[i] = 0;
                         break;
                     case COLOR_BLUE:
-                        board[i] = 1; // system's piece
+                        board[i] = 4; // system's piece
                         break;
                     case COLOR_YELLOW:
                         board[i] = 0;
@@ -418,10 +418,10 @@ public class DataConverter implements DataConverterInterface {
         {
             //System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 
-            VideoCapture camera = new VideoCapture();
+            VideoCapture camera = new VideoCapture(0);
             DataConverter image = new DataConverter();
 
-            camera.open(0); //Useless
+            //camera.open(0); //Useless
             if(!camera.isOpened())
             {
                 System.out.println("Camera Error");
@@ -433,6 +433,10 @@ public class DataConverter implements DataConverterInterface {
             {
                 System.out.println("Camera OK");
             }
+
+            double captureWidth = camera.get(Highgui.CV_CAP_PROP_FRAME_WIDTH);
+            double captureHeight = camera.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT);
+            System.out.println("Video capture opened successfully. Width: " + captureWidth + " Height: " + captureHeight + "\n");
 
 
             boolean success = camera.read(capturedFrame);
@@ -471,6 +475,7 @@ public class DataConverter implements DataConverterInterface {
 
         public byte[] getBoard()
         {
+            capture();
             return this.board;
         }
 
