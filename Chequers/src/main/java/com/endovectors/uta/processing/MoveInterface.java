@@ -7,4 +7,6 @@ public interface MoveInterface {
 
     @Override
     String toString();
+
+    int getWinner();
 }

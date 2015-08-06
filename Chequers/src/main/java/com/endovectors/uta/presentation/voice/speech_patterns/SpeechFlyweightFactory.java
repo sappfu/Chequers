@@ -19,15 +19,17 @@ public class SpeechFlyweightFactory {
     private ArrayList<String> waitingOnArmMovement;
     private ArrayList<String> waitingOnProcessing;
     private ArrayList<String> invalidMove;
+    private ArrayList<String> gameOverWin;
+    private ArrayList<String> gameOverLose;
 
-    public static SpeechFlyweightFactory getInstance(){
-        if (speechFlyweightFactory == null){
+    public static SpeechFlyweightFactory getInstance() {
+        if (speechFlyweightFactory == null) {
             speechFlyweightFactory = new SpeechFlyweightFactory();
         }
         return speechFlyweightFactory;
     }
 
-    private SpeechFlyweightFactory(){
+    private SpeechFlyweightFactory() {
         goodMove = new ArrayList<String>();
         initGoodMove();
         reallyGoodMove = new ArrayList<String>();
@@ -44,91 +46,117 @@ public class SpeechFlyweightFactory {
         initWaitingOnProcessing();
         invalidMove = new ArrayList<String>();
         initInvalidMove();
+        gameOverLose = new ArrayList<String>();
+        initGameOverLose();
+        gameOverWin = new ArrayList<String>();
+        initGameOverWin();
     }
 
-    private int getString(int length){
+    private int getString(int length) {
         Random random = new Random();
         return random.nextInt(length);
     }
 
-    private void initGoodMove(){
+    private void initGoodMove() {
         goodMove.add("That was a good move.");
         goodMove.add("Nice.... move.");
     }
 
-    private void initReallyGoodMove(){
+    private void initReallyGoodMove() {
         reallyGoodMove.add("That was a.. really good move.");
         reallyGoodMove.add("I can't believe I did not see that one coming.");
     }
 
-    private void initBadMove(){
+    private void initBadMove() {
         badMove.add("That was a bad move.");
         badMove.add("Did you really mean to move there?");
     }
 
-    private void initReallyBadMove(){
+    private void initReallyBadMove() {
         reallyBadMove.add("That was a horrible move.");
         reallyBadMove.add("Do you even checkers... buh row?");
     }
 
-    private void initWaitingOnPlayer(){
+    private void initWaitingOnPlayer() {
         waitingOnPlayer.add("Are you still there? Please hit pause or end if you are scared to continue.");
         waitingOnPlayer.add("Did you get out the checkers manual or something?");
     }
 
-    private void initWaitingOnArmMovement(){
+    private void initWaitingOnArmMovement() {
         waitingOnArmMovement.add("This shouldn't take long.");
         waitingOnArmMovement.add("I am almost finished.");
     }
 
-    private void initWaitingOnProcessing(){
+    private void initWaitingOnProcessing() {
         waitingOnProcessing.add("Give me a moment to look at the board.");
         waitingOnProcessing.add("Let me see.");
         waitingOnProcessing.add("What do we have here.");
     }
 
-    private void initInvalidMove(){
+    private void initInvalidMove() {
         invalidMove.add("That move is invalid... Please perform a valid move.");
         invalidMove.add("Invalid move made. .... Exterminate... Exterminate");
     }
 
-    public String getGoodMove(){
+    private void initGameOverWin(){
+        gameOverWin.add("I can not be defeated. Not in this world.");
+        gameOverWin.add("That was easy. This game is over. You lose.");
+    }
+
+    private void initGameOverLose(){
+        gameOverLose.add("You have defeated me. Game over. You win.");
+        gameOverLose.add("No more moves can be made. You have won the game.");
+    }
+
+    public String getGoodMove() {
         int random = getString(goodMove.size());
         return goodMove.get(random);
     }
 
-    public String getReallyGoodMove(){
+    public String getReallyGoodMove() {
         int random = getString(reallyGoodMove.size());
         return reallyGoodMove.get(random);
     }
 
-    public String getBadMove(){
+    public String getBadMove() {
         int random = getString(badMove.size());
         return badMove.get(random);
     }
 
-    public String getReallyBadMove(){
+    public String getReallyBadMove() {
         int random = getString(reallyBadMove.size());
         return reallyBadMove.get(random);
     }
 
-    public String getWaitingOnPlayer(){
+    public String getWaitingOnPlayer() {
         int random = getString(waitingOnPlayer.size());
         return waitingOnPlayer.get(random);
     }
 
-    public String getWaitingOnArmMovement(){
+    public String getWaitingOnArmMovement() {
         int random = getString(waitingOnArmMovement.size());
         return waitingOnArmMovement.get(random);
     }
 
-    public String getWaitingOnProcessing(){
+    public String getWaitingOnProcessing() {
         int random = getString(waitingOnProcessing.size());
         return waitingOnProcessing.get(random);
     }
 
-    public String getInvalidMove(){
+    public String getInvalidMove() {
         int random = getString(invalidMove.size());
         return invalidMove.get(random);
     }
+
+    public String getGameOverWin() {
+        int random = getString(gameOverWin.size());
+        return gameOverWin.get(random);
+    }
+
+    public String getGameOverLose() {
+        int random = getString(gameOverLose.size());
+        return gameOverLose.get(random);
+    }
+
+    ;
 }

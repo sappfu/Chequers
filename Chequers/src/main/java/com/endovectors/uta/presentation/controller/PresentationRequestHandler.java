@@ -77,4 +77,16 @@ public class PresentationRequestHandler extends Observable implements Runnable{
     public void notifyInvalidMove(){
         setButtonState(ButtonStatesEnum.PLAY_STATE);
     }
+
+    public void handleGameOver(int winner){
+        SpeechEnum enu;
+        if (winner == 2){
+            enu = SpeechEnum.gameOverLose;
+        }
+        else {
+            enu = SpeechEnum.gameOverWin;
+        }
+        speak(enu);
+        setButtonState(ButtonStatesEnum.MENU_STATE);
+    }
 }

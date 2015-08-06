@@ -8,4 +8,8 @@ public class InvalidMove implements MoveInterface{
     public String toString(){
         return "Invalid move made.";
     }
+
+    public int getWinner(){
+        return 0;
+    }
 }

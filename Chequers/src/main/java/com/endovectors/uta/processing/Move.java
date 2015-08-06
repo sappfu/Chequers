@@ -59,5 +59,9 @@ public class Move implements MoveInterface{
     Move move = (Move) m;
     return move.from == this.from && move.to == this.to;
   }
+
+  public int getWinner(){
+    return 0;
+  }
 }
 

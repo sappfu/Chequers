@@ -5,10 +5,7 @@ import com.endovectors.uta.hardware.HardwareRequestHandlerInterface;
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
 import com.endovectors.uta.presentation.controller.PresentationRequestHandler;
 import com.endovectors.uta.presentation.voice.speech_patterns.SpeechEnum;
-import com.endovectors.uta.processing.InvalidMove;
-import com.endovectors.uta.processing.List;
-import com.endovectors.uta.processing.Move;
-import com.endovectors.uta.processing.MoveInterface;
+import com.endovectors.uta.processing.*;
 import com.endovectors.uta.processing.controller.ProcessingRequestHandler;
 
 import java.util.ArrayList;
@@ -73,6 +70,9 @@ public class MasterController implements Observer {
 			if(result.get(0).getClass() == InvalidMove.class){
 				presentationRequestHandler.speak(SpeechEnum.invalidMove);
 				presentationRequestHandler.notifyInvalidMove();
+			}
+			if(result.get(0).getClass() == GameOver.class){
+				presentationRequestHandler.handleGameOver(result.get(0).getWinner());
 			}
 
 		}

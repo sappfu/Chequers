@@ -11,5 +11,7 @@ public enum SpeechEnum {
     waitingOnPlayer,
     waitingOnArmMovement,
     waitingOnProcessing,
-    invalidMove
+    invalidMove,
+    gameOverWin,
+    gameOverLose
 }

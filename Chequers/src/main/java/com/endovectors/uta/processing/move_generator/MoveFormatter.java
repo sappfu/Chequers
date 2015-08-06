@@ -19,11 +19,15 @@ public class MoveFormatter implements MoveFormatterInterface{
     }
 
     public ArrayList<MoveInterface> getMove(CheckersBoard board){
+        ArrayList<MoveInterface> list = new ArrayList<MoveInterface>();
         if (board == null){
             System.out.println("board is null");
         }
+        if(board.hasEnded()){
+            list.add(new GameOver(board.winner()));
+            return list;
+        }
         List moves;
-        ArrayList<MoveInterface> list = new ArrayList<MoveInterface>();
         if (moveTreeGenerator == null){
             moveTreeGenerator = new MoveTreeGenerator(board);
         }
