@@ -11,9 +11,7 @@ package com.endovectors.uta.processing.vision;
 
 
 import org.opencv.core.*;
-import org.opencv.videoio.Videoio;
-import org.opencv.videoio.VideoCapture;
-import org.opencv.imgcodecs.*;
+import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.*;
 
 import java.awt.image.BufferedImage;
@@ -143,31 +141,24 @@ public class CaptureImage {
 			switch(color)
 			{
 				/*case COLOR_RED:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 255), 3);
 					board[i] = EMPTY;
 					break;
 				case COLOR_GREEN:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 0), 3);
 					board[i] = EMPTY;
 					break;*/
 				case COLOR_BLUE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 3);
 					board[i] = SYSTEM; // system's piece
 					break;
 				/*case COLOR_YELLOW:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 255), 3);
 					board[i] = EMPTY;
 					break;*/
 				case COLOR_ORANGE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 3);
 					board[i] = END_USER; // end user's piece
 					break;
 				case COLOR_WHITE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 3);
 					board[i] = EMPTY;
 					break;
 				default: // this is black
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 3);
 					board[i] = EMPTY;
 					break;
 			}
@@ -388,13 +379,13 @@ public class CaptureImage {
 		    processedFrame.get(0,0,b); // get all the pixels
 		    // This might need to be BufferedImage.TYPE_INT_ARGB
 		    img = new BufferedImage(processedFrame.cols(), processedFrame.rows(), BufferedImage.TYPE_INT_RGB);
-		    int width = (int)camera.get(Videoio.CAP_PROP_FRAME_WIDTH);
-		    int height = (int)camera.get(Videoio.CAP_PROP_FRAME_HEIGHT);
+		    int width = (int)camera.get(Highgui.CV_CAP_PROP_FRAME_WIDTH);
+		    int height = (int)camera.get(Highgui.CV_CAP_PROP_FRAME_HEIGHT);
 		    //img.getRaster().setDataElements(0, 0, width, height, b);
 		    byte[] a = new byte[bufferSize];
 		    System.arraycopy(b, 0, a, 0, bufferSize);
 		    
-		    Imgcodecs.imwrite("camera.jpg",processedFrame);
+		    Highgui.imwrite("camera.jpg",processedFrame);
 		    System.out.println("Success");
 		}
 		else
