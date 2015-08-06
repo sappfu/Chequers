@@ -6,6 +6,7 @@ import com.endovectors.uta.presentation.voice.VoiceSelector;
 import com.endovectors.uta.presentation.voice.speech_patterns.SpeechEnum;
 import com.endovectors.uta.processing.CheckersBoard;
 import com.endovectors.uta.centralcontroller.MasterController;
+import com.endovectors.uta.centralcontroller.Alarm;
 
 import java.util.ArrayList;
 import java.util.Observable;
