@@ -13,6 +13,7 @@ package com.endovectors.uta.processing.vision;
 import org.opencv.core.*;
 import org.opencv.highgui.VideoCapture;
 import org.opencv.imgproc.*;
+import org.opencv.highgui.Highgui;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
