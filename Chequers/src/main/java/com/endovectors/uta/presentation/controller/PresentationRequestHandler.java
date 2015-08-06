@@ -25,7 +25,6 @@ public class PresentationRequestHandler extends Observable implements Runnable, 
     ArrayList<SpeechEnum> nextPhrases;
 
     public PresentationRequestHandler(){
-        voiceSelector = new VoiceSelector(this);
         gui = new GUI(this);
         setGui(gui); // added
         
@@ -33,9 +32,7 @@ public class PresentationRequestHandler extends Observable implements Runnable, 
         nextPhrases = new ArrayList<SpeechEnum>();
         thread = new Thread(voiceSelector);
         thread.start();
-        nextPhrases = new ArrayList<SpeechEnum>();
-        thread = new Thread(voiceSelector);
-        thread.start();
+        
     }
     
     public void setGui(GUI gu) // added
