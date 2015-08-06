@@ -1,4 +1,8 @@
-package main.java.com.endovectors.uta.presentation.controller;
+package com.endovectors.uta.presentation.controller;
+
+
+// It appears that this class is not needed
+
 
 public class Instruction
 {

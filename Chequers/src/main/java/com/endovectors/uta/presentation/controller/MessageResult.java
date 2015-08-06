@@ -1,33 +1,33 @@
-package main.java.com.endovectors.uta.presentation.controller;
+package com.endovectors.uta.presentation.controller;
 
 public class MessageResult
 {
-	private String move;
-	private String prompt;
+	private int move;
+	//private String prompt;
 	
-	public MessageResult(String m, String p)
+	public MessageResult(int m/*, String p*/)
 	{
 		move = m;
-		prompt = p;
+		//prompt = p;
 	}
 	
-	String getMove()
+	int getMove()
 	{
 		return this.move;
 	}
 	
-	String getPrompt()
+	/*String getPrompt()
 	{
 		return this.prompt;
-	}
+	}*/
 	
-	void setMove(String m)
+	void setMove(int m)
 	{
 		this.move = m;
 	}
 	
-	void setPrompt(String p)
+	/*void setPrompt(String p)
 	{
 		this.prompt = p;
-	} 
+	}*/
 }

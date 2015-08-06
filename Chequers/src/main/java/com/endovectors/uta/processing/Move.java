@@ -55,8 +55,7 @@ public class Move implements MoveInterface{
     return "(" + from + "," + to + ")";
   }
 
-  public boolean compare(MoveInterface m){
-    Move move = (Move) m;
+  public boolean compare(Move move){
     return move.from == this.from && move.to == this.to;
   }
 

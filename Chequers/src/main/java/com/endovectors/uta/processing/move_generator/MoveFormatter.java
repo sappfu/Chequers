@@ -1,6 +1,6 @@
 package com.endovectors.uta.processing.move_generator;
 
-import com.endovectors.uta.processing.*;
+import com.endovectors.uta.processing.*;import com.endovectors.uta.processing.*;
 
 import java.util.ArrayList;
 import java.util.Enumeration;

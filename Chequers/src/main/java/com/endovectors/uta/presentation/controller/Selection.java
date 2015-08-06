@@ -1,43 +1,62 @@
 package com.endovectors.uta.presentation.controller;
 
-import presentationController.MessageFormatter;
+import com.endovectors.uta.centralcontroller.MasterController;
+import com.endovectors.uta.presentation.controller.MessageFormatter;
+import com.endovectors.uta.presentation.display.GUI;
+import com.endovectors.uta.presentation.voice.VoiceSelector;
+import com.endovectors.uta.processing.CheckersBoard;
 
 /**
  * Created by asham_000 on 7/5/2015.
  */
-public class Selection
+public class Selection implements MoveType
 {
-private int type = 0;
+	//private int type = 0;
+	private GUI gui;
 	
-	public Selection(MessageFormatter m)
+	public Selection()
 	{
-		type = Integer.parseInt(m.getResult().getMove());
+		/*if (m.getResult() == null)
+			type = NO_MOVE;
+		else
+			type = m.getResult().getMove();
+		*/
+		gui = PresentationRequestHandler.getGui();
 	}
 	
-	public void send(MessageFormatter m)
+	public void send(CheckersBoard b)
 	{
-		// call on method from destination(s)
-		// presentation request handler in master controller
-		String to[] = m.getInstruction().getDestinations();
-		for (int i = 0; i < to.length; i++)
+
+		//VoiceSelector select = new VoiceSelector(type);
+		if (b == null)
 		{
-			if (to[i].equals("Master Controller"))
-			{
-				// determine what to send to master controller
-			}
-			
-			else if (to[i].equals("Voice"))
-			{
-				//VoiceSelector select = new VoiceSelector(type);
-			}
-			else if (to[i].equals("LED"))
-			{
-				
-			}
-			else if (to[i].equals("Display"))
-			{
-				
-			}
+			this.gui.changeToFace();
+			//select.play();
+			try
+	    	{
+	    	    Thread.sleep(3000); // let face "talk" for 3 seconds
+	    	}
+	    	catch(InterruptedException ex)
+	    	{
+	    	    Thread.currentThread().interrupt();
+	    	}
+			this.gui.changeToBoth();
+		}
+		else
+		{
+			this.gui.changeToFace();
+			//select.play();
+			try
+	    	{
+	    	    Thread.sleep(3000); // let face "talk" for 3 seconds
+	    	}
+	    	catch(InterruptedException ex)
+	    	{
+	    	    Thread.currentThread().interrupt();
+	    	}
+			//this.gui.changeBoard(b);
+			this.gui.setBoard(b); // changed to this
+			this.gui.changeToBoth();
 		}
 	}
 }
