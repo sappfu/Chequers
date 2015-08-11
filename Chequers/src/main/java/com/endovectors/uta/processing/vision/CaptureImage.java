@@ -11,13 +11,14 @@ package com.endovectors.uta.processing.vision;
 
 
 import org.opencv.core.*;
-import org.opencv.videoio.Videoio;
+import org.opencv.highgui.Highgui;
 import org.opencv.videoio.VideoCapture;
-import org.opencv.imgcodecs.*;
 import org.opencv.imgproc.*;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
+
+import com.endovectors.uta.processing.CheckersBoard;
 
 public class CaptureImage {
 
@@ -29,10 +30,6 @@ public class CaptureImage {
 	private final char COLOR_WHITE = 'w';
 	// need to add black, which is currently the default
 	
-	// denotes which player's piece is in the board index
-	private final int EMPTY = 0;
-	private final int SYSTEM = 1;
-	private final int END_USER = 2;
 	
 	private Mat capturedFrame; // raw image
 	private Mat processedFrame; // processed image
@@ -203,24 +200,24 @@ public class CaptureImage {
 			switch(color)
 			{
 				case COLOR_BLUE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
-					//Core.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
-					board[i] = SYSTEM; // system's piece
+					//Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
+					Core.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
+					board[i] = CheckersBoard.BLACK; // end user's piece
 					break;
 				case COLOR_ORANGE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
-					//Core.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
-					board[i] = END_USER; // end user's piece
+					//Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
+					Core.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
+					board[i] = CheckersBoard.WHITE; // system's piece
 					break;
 				case COLOR_WHITE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
-					//Core.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
-					board[i] = EMPTY;
+					//Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
+					Core.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
+					board[i] = CheckersBoard.EMPTY;
 					break;
 				default: // this is black
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2);
-					//Core.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2); // maybe add 8, 0 as line type and fractional bits
-					board[i] = EMPTY;
+					//Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2);
+					Core.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2); // maybe add 8, 0 as line type and fractional bits
+					board[i] = CheckersBoard.EMPTY;
 					break;
 			}
 			
@@ -263,7 +260,7 @@ public class CaptureImage {
         Mat mask = new Mat();
         mask = Mat.zeros(dst.size(), dst.type());
         Imgproc.drawContours(mask, contours, -1, new Scalar(255,255,255), 1, 8, hierarchy, 2, new Point());
-        Imgcodecs.imwrite("contours.jpg",mask);
+        Highgui.imwrite("contours.jpg",mask);
 
 		
 		ArrayList occupied = new ArrayList<Integer>();
