@@ -260,7 +260,7 @@ public class CaptureImage {
         Mat mask = new Mat();
         mask = Mat.zeros(dst.size(), dst.type());
         Imgproc.drawContours(mask, contours, -1, new Scalar(255,255,255), 1, 8, hierarchy, 2, new Point());
-        Highgui.imwrite("contours.jpg",mask);
+        Highgui.imwrite("contours.jpg", mask);
 
 		
 		ArrayList occupied = new ArrayList<Integer>();
