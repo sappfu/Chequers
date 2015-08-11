@@ -33,7 +33,7 @@ public class MasterController implements Observer {
 		state = new State();
 		processingRequestHandler = new ProcessingRequestHandler();
 		presentationRequestHandler = new PresentationRequestHandler();
-		hardwareRequestHandler = new HardwareRequestHandler();
+		hardwareRequestHandler = new HardwareRequestHandler(this);
 		processingRequestHandler.addObserver(this);
 		presentationRequestHandler.addObserver(this);
 		hardwareRequestHandler.addObserver(this);
@@ -129,5 +129,9 @@ public class MasterController implements Observer {
 	public static Timer getTimer()
 	{
 		return timer;
+	}
+
+	public ArrayList<MoveInterface> getMoves(){
+		return state.getNextMoves();
 	}
 }

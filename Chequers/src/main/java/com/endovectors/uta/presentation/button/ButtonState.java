@@ -22,6 +22,7 @@ public class ButtonState extends JPanel {
     ButtonTwoMenuStateActionListener buttonTwoMenuStateActionListener;
     ButtonThree buttonThree;
     ButtonThreeMenuStateActionListener buttonThreeMenuStateActionListener;
+    ButtonDecoder buttonDecoder;
 
     public ButtonState(PresentationRequestHandler presentationRequestHandler){
         this.buttonOne = new ButtonOne("Start Game");
@@ -36,6 +37,7 @@ public class ButtonState extends JPanel {
         this.buttonThreeMenuStateActionListener = new ButtonThreeMenuStateActionListener(presentationRequestHandler);
         buttonThree.addActionListener(buttonThreeMenuStateActionListener);
         this.add(buttonThree);
+        buttonDecoder = new ButtonDecoder(this.buttonOne, this.buttonTwo, this.buttonThree);
     }
 
     public void setState(ButtonStatesEnum state){

@@ -11,12 +11,13 @@ package com.endovectors.uta.processing.vision;
 
 
 import org.opencv.core.*;
-import org.opencv.highgui.VideoCapture;
-import org.opencv.imgproc.*;
 import org.opencv.highgui.Highgui;
+import org.opencv.highgui.VideoCapture;
+
 
 import java.awt.image.BufferedImage;
 import java.util.*;
+import java.util.List;
 
 public class CaptureImage {
 
@@ -142,24 +143,31 @@ public class CaptureImage {
 			switch(color)
 			{
 				/*case COLOR_RED:
+					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 255), 3);
 					board[i] = EMPTY;
 					break;
 				case COLOR_GREEN:
+					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 0), 3);
 					board[i] = EMPTY;
 					break;*/
 				case COLOR_BLUE:
+//					Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 3);
 					board[i] = SYSTEM; // system's piece
 					break;
 				/*case COLOR_YELLOW:
+					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 255), 3);
 					board[i] = EMPTY;
 					break;*/
 				case COLOR_ORANGE:
+//					Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 3);
 					board[i] = END_USER; // end user's piece
 					break;
 				case COLOR_WHITE:
+//					Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 3);
 					board[i] = EMPTY;
 					break;
 				default: // this is black
+//					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 3);
 					board[i] = EMPTY;
 					break;
 			}
@@ -386,7 +394,7 @@ public class CaptureImage {
 		    byte[] a = new byte[bufferSize];
 		    System.arraycopy(b, 0, a, 0, bufferSize);
 		    
-		    Highgui.imwrite("camera.jpg",processedFrame);
+		    Highgui.imwrite("camera.jpg", processedFrame);
 		    System.out.println("Success");
 		}
 		else
@@ -410,6 +418,8 @@ public class CaptureImage {
 	
 	public int[] getBoard()
 	{
+		CaptureImage im = new CaptureImage();
+		im.capture();
 		return this.board;
 	}
 	

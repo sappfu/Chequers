@@ -44,7 +44,7 @@ public class MoveFormatterTest extends TestCase{
             int i=0;
             while (enu.hasMoreElements()) {
                 move = (Move) enu.nextElement();
-                Assert.assertTrue(move.compare(formattedMoves.get(i++)));
+                Assert.assertTrue(move.compare((Move)formattedMoves.get(i++)));
             }
         }
         catch(Exception e){
