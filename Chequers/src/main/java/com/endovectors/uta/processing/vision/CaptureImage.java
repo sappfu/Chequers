@@ -148,7 +148,7 @@ public class CaptureImage {
 		int vsegment = in.rows() / 8; // only accounts 8 playable
 		int hsegment = in.cols() / 10; // 8 playable, 2 capture
 		int hOffset = hsegment * 2; // offset for playable board
-		int vOffset = vsegment + 20;
+		int vOffset = vsegment + 40;
 		
 		// For angle of camera
 		int dx = 48;
