@@ -153,6 +153,7 @@ public class CaptureImage {
 		
 		// For angle of camera
 		int dx = 80;
+		int ddx = 0;
 		hsegment -= 16;
 		
 		int dy = 20;
@@ -163,14 +164,30 @@ public class CaptureImage {
 		{
 			// change offset depending on the row
 			if (parity == 0) // playable squares start on 2nd square from left
+			{
+				if (rowNum >= 5)
+					dx -= 3;
 				hOffset = hsegment * 2 + dx;
+			}
 			else // playable squares start on immediate left
+			{
+				if (rowNum >= 5)
+					dx -= 3;
 				hOffset = hsegment + dx;
+			}
+			
+			if (rowNum >= 5)
+			{
+				if (count > 0)
+				{
+					ddx = 12;
+				}
+			}
 
 			// find where roi should be
 			//System.out.println("" + vOffset);
-			Point p1 = new Point(hOffset + count * hsegment, vOffset + rowNum * vsegment - dy); // top left point of rectangle (x,y)
-			Point p2 = new Point(hOffset + (count + 1) * hsegment, vOffset + (rowNum + 1) * vsegment - dy); // bottom right point of rectangle (x,y)
+			Point p1 = new Point(hOffset + count * hsegment + ddx, vOffset + rowNum * vsegment - dy); // top left point of rectangle (x,y)
+			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx, vOffset + (rowNum + 1) * vsegment - dy); // bottom right point of rectangle (x,y)
 			
 			// create rectangle that is board square
 			Rect bound = new Rect(p1, p2);
