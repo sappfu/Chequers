@@ -14,9 +14,9 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 public class Decoder {
 
-    final static ButtonOne buttonOne;
-    final static ButtonTwo buttonTwo;
-    final static ButtonThree buttonThree;
+    final ButtonOne buttonOne;
+    final ButtonTwo buttonTwo;
+    final ButtonThree buttonThree;
 
     final GpioPinDigitalInput button1;
     final GpioPinDigitalInput button2;
@@ -24,10 +24,10 @@ public class Decoder {
 
     final GpioController gpio = GpioFactory.getInstance();
 
-    public Decoder (ButtonOne buttonOne, ButtonTwo buttonTwo, ButtonThree buttonThree) {
-        this.buttonOne = buttonOne;
-        this.buttonTwo = buttonTwo;
-        this.buttonThree = buttonThree;
+    public Decoder (ButtonOne one, ButtonTwo two, ButtonThree three) {
+        buttonOne = one;
+        buttonTwo = two;
+        buttonThree = three;
 
         button1 = gpio.provisionDigitalInputPin(RaspiPin.GPIO_01, PinPullResistance.PULL_DOWN);
         button2 = gpio.provisionDigitalInputPin(RaspiPin.GPIO_02, PinPullResistance.PULL_DOWN);
