@@ -184,18 +184,20 @@ public class CaptureImage {
 				if (count == 2)
 					ddx = 16;
 				else if (count == 4)
-					ddx = 20;
+					ddx = 32;
 				else if (count == 6)
-					ddx = 24;
+					ddx = 40;
 			}
 			if (rowNum == 7)
 			{
-				if (count == 2)
-					ddx = 16;
-				else if (count == 4)
+				if (count == 0)
+					ddx = -20;
+				else if (count == 2)
 					ddx = 24;
-				else if (count == 6)
-					ddx = 32;
+				else if (count == 4)
+					ddx = 40;
+				else
+					ddx = 52;
 			}
 
 			// find where roi should be
