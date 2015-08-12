@@ -482,13 +482,25 @@ public class CaptureImage {
 		// ... here
 		
 		
-		
+		//original values
+		/*
 		// define the reference color values
 		//double RED[] = {0.4, 0.5, 1.8};
 		//double GREEN[] = {1.0, 1.2, 1.0};
 		double BLUE[] = {1.75, 1.0, 0.5};
 		//double YELLOW[] = {0.82, 1.7, 1.7};
 		double ORANGE[] = {0.2, 1.0, 2.0};
+		double WHITE[] = {2.0, 1.7, 1.7};
+		//double BLACK[] = {0.0, 0.3, 0.3};
+		*/
+		
+		
+		// define the reference color values
+		//double RED[] = {0.4, 0.5, 1.8};
+		//double GREEN[] = {1.0, 1.2, 1.0};
+		double BLUE[] = {1.75, 1.0, 0.5};
+		//double YELLOW[] = {0.82, 1.7, 1.7};
+		double ORANGE[] = {0.4, 1.2, 1.9};
 		double WHITE[] = {2.0, 1.7, 1.7};
 		//double BLACK[] = {0.0, 0.3, 0.3};
 		
