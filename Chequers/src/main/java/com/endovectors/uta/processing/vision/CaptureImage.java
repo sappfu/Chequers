@@ -176,9 +176,18 @@ public class CaptureImage {
 				hOffset = hsegment + dx;
 			}
 			
+			if (rowNum == 4)
+				if (count == 6)
+					ddx = 10;
 			if (rowNum == 5)
-				if (count > 0)
+			{
+				if (count == 2)
+					ddx = 10;
+				else if (count == 4)
 					ddx = 12;
+				else if (count == 6)
+					ddx = 20;
+			}
 			if (rowNum == 6)
 			{
 				if (count == 2)
@@ -191,7 +200,7 @@ public class CaptureImage {
 			if (rowNum == 7)
 			{
 				if (count == 0)
-					ddx = -20;
+					ddx = -10;
 				else if (count == 2)
 					ddx = 24;
 				else if (count == 4)
