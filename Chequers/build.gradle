@@ -19,8 +19,8 @@ dependencies {
     compile 'org.mobicents.external.freetts:en_us:1.0'
     compile 'com.pi4j:pi4j-core:1.0'
     compile 'org.rxtx:rxtx:2.1.7'
-    compile files('./src/main/java/resources/java/opencv-2410.jar')
-    //compile files('../../opencv-2.4.10/build/bin/opencv-2410.jar')
+    //compile files('./src/main/java/resources/java/opencv-2410.jar')
+    compile files('../../opencv-2.4.10/build/bin/opencv-2410.jar')
 }
 
 task('copyTask', type: Copy)
