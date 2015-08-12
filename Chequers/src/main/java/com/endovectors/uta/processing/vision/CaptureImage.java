@@ -152,7 +152,7 @@ public class CaptureImage {
 		int vOffset = vsegment + 40;
 		
 		// For angle of camera
-		int dx = 72;
+		int dx = 88;
 		//int ddx = 10;
 		hsegment -= 16;
 		
@@ -230,7 +230,7 @@ public class CaptureImage {
 				count = 0;
 				rowNum++;
 				hsegment += 2;
-				dx -= 9;
+				dx -= 11;
 				dy += 10;
 				vsegment += 3;
 			}
