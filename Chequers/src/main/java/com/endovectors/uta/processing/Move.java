@@ -72,7 +72,7 @@ public class Move implements MoveInterface {
         if (Math.abs(to - from) > 6) {
             return calculateCapturePiece();
         } else {
-            return 0;
+            return -1;
         }
     };
 
