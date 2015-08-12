@@ -29,7 +29,7 @@ public class CaptureImage {
 	private final char COLOR_ORANGE = 'o';
 	//private final char COLOR_YELLOW = 'y';
 	private final char COLOR_WHITE = 'w';
-	// need to add black, which is currently the default
+	private final char COLOR_BLACK = 'l';
 	
 	
 	private Mat capturedFrame; // raw image
@@ -106,7 +106,7 @@ public class CaptureImage {
 					Core.rectangle(in, p1, p2, new Scalar(255, 255, 255), 2);
 					captured[i] = 0;
 					break;
-				default: // this is black
+				case COLOR_BLACK:
 					//Imgproc.rectangle(in, p1, p2, new Scalar(0, 0, 0), 3);
 					Core.rectangle(in, p1, p2, new Scalar(255, 255, 255), 2);
 					captured[i] = 0;
@@ -261,7 +261,7 @@ public class CaptureImage {
 					Core.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
 					board[i] = CheckersBoard.EMPTY;
 					break;
-				default: // this is black
+				case COLOR_BLACK: // this is black
 					//Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2);
 					Core.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2); // maybe add 8, 0 as line type and fractional bits
 					board[i] = CheckersBoard.EMPTY;
@@ -500,44 +500,23 @@ public class CaptureImage {
 		//double GREEN[] = {1.0, 1.2, 1.0};
 		double BLUE[] = {1.75, 1.0, 0.5};
 		//double YELLOW[] = {0.82, 1.7, 1.7};
-		double ORANGE[] = {0.4, 1.2, 1.9};
+		double ORANGE[] = {0.2, 1.0, 2.0};
 		double WHITE[] = {2.0, 1.7, 1.7};
-		//double BLACK[] = {0.0, 0.3, 0.3};
+		double BLACK[] = {0.0, 0.3, 0.3};
 		
 		// compute the square error relative to the reference color values
 		//double minError = 3.0;
 		double minError = 3.0;
 		double errorSqr;
 		char bestFit = 'x';
-		/*
-		// check RED fitness
-		errorSqr = normSqr(RED[0], RED[1], RED[2], bavg, gavg, ravg);
-		if(errorSqr < minError)
-		{
-			minError = errorSqr;
-			bestFit = COLOR_RED;
-		}
-		// check GREEN fitness
-		errorSqr = normSqr(GREEN[0], GREEN[1], GREEN[2], bavg, gavg, ravg);
-		if(errorSqr < minError)
-		{
-			minError = errorSqr;
-			bestFit = COLOR_GREEN;
-		}*/
+		
 		// check BLUE fitness
 		errorSqr = normSqr(BLUE[0], BLUE[1], BLUE[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
 			bestFit = COLOR_BLUE;
-		}/*
-		// check YELLOW fitness
-		errorSqr = normSqr(YELLOW[0], YELLOW[1], YELLOW[2], bavg, gavg, ravg);
-		if(errorSqr < minError)
-		{
-			minError = errorSqr;
-			bestFit = COLOR_YELLOW;
-		}*/
+		}
 		// check ORANGE fitness
 		errorSqr = normSqr(ORANGE[0], ORANGE[1], ORANGE[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
@@ -551,6 +530,13 @@ public class CaptureImage {
 		{
 			minError = errorSqr;
 			bestFit = COLOR_WHITE;
+		}
+		// check BLACK fitness
+		errorSqr = normSqr(BLACK[0], BLACK[1], BLACK[2], bavg, gavg, ravg);
+		if(errorSqr < minError)
+		{
+			minError = errorSqr;
+			bestFit = COLOR_BLACK;
 		}
 		
 		// return the best fit color label
