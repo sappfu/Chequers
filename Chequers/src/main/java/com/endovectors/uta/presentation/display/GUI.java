@@ -17,9 +17,12 @@ public class GUI extends JFrame {
     private static ResourceBundle resources;
     BoardView view;
     ButtonState buttonState;
+    JPanel cards;
+    CardLayout cl;
 
     public GUI(PresentationRequestHandler presentationRequestHandler) {
         super ("Checkers");
+        /*
         this.setLayout(new GridLayout());
         //GridBagConstraints c = new GridBagConstraints();
         JLabel jlabel = new JLabel("Chequers System");
@@ -31,10 +34,75 @@ public class GUI extends JFrame {
 
         this.setSize(600, 800);
         setVisible(true);
+        */
+        
+        this.setLayout(new GridLayout());
+        
+        
+        
+        view = new BoardView(this, new CheckersBoard());
+        //add(view);
+        buttonState = new ButtonState(presentationRequestHandler);
+        //add(buttonState);
+        
+        JPanel both = new JPanel(new GridLayout(1,2));        
+        
+        JPanel face = new JPanel();
+        face.add(new Face());
+        
+        JPanel rightHalf = new JPanel(new BorderLayout());
+        rightHalf.add(buttonState, BorderLayout.NORTH);
+        rightHalf.add(view);
+        both.add(new Face());
+        both.add(rightHalf);
+        
+        cl = new CardLayout();
+        cards = new JPanel(cl);
+        cards.add(both, "Both");
+        cards.add(face, "Face");
+        
+        cl.show(cards, "Both");
+        
+        //getContentPane().add(cards);
+        add(cards);
+        
+        this.setSize(800, 800);
+        setVisible(true);
+        
     }
 
     public void setButtonState(ButtonStatesEnum state){
         buttonState.setState(state);
     }
-
+    
+    public BoardView getBoard()
+    {
+    	return this.view;
+    }
+    
+    /*// not sure this is right
+    public void changeBoard(CheckersBoard b)
+    {
+    	Graphics g = this.getBoard().graph; // this might be wrong
+    	int marginX = this.getBoard().startX;
+    	int marginY = this.getBoard().startY;
+    	int incValue = this.getBoard().cellWidth;
+    	CheckersBoard board = b;
+    	this.getBoard().drawPieces(g, marginX, marginY, incValue, board); // this might be wrong
+    }*/
+    
+    public void setBoard(CheckersBoard b)
+    {
+    	this.view.setBoard(b);
+    }
+    
+    public void changeToFace()
+    {
+    	cl.show(cards, "Face");
+    }
+    
+    public void changeToBoth()
+    {
+    	cl.show(cards, "Both");
+    }
 }

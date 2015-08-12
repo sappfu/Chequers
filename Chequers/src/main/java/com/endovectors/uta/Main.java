@@ -1,6 +1,7 @@
 package com.endovectors.uta;
 
 import com.endovectors.uta.centralcontroller.MasterController;
+import com.endovectors.uta.processing.vision.CaptureImage;
 
 /**
  * Created by asham_000 on 7/5/2015.
@@ -14,6 +15,9 @@ public class Main {
     }
 
     private static void setup(){
-        masterController = new MasterController();
+        System.setProperty("java.library.path", System.getProperty("user.dir"));
+        //masterController = new MasterController();
+        CaptureImage image = new CaptureImage();
+        image.capture();
     }
 }

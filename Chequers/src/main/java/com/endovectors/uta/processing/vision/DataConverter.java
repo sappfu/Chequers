@@ -1,11 +1,5 @@
 package com.endovectors.uta.processing.vision;
 
-import org.bytedeco.javacpp.*;
-import org.bytedeco.javacpp.opencv_core.*;
-import org.bytedeco.javacpp.helper.*;
-import org.bytedeco.javacpp.opencv_highgui.*;
-import org.bytedeco.javacpp.presets.*;
-
 import java.awt.image.BufferedImage;
 import java.util.*;
 

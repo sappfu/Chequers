@@ -6,38 +6,37 @@
  * Purpose: Identifies colors on a checker board in attempt to determine the state of a game of checkers.
  */
 
-package main.java.com.endovectors.uta.processing.vision;
+package com.endovectors.uta.processing.vision;
 
 
 
 import org.opencv.core.*;
-import org.opencv.videoio.Videoio;
+import org.opencv.highgui.Highgui;
 import org.opencv.videoio.VideoCapture;
-import org.opencv.imgcodecs.*;
 import org.opencv.imgproc.*;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
 
+import com.endovectors.uta.processing.CheckersBoard;
+
 public class CaptureImage {
 
-	private final char COLOR_RED = 'r';
-	private final char COLOR_GREEN = 'g';
+	//private final char COLOR_RED = 'r';
+	//private final char COLOR_GREEN = 'g';
 	private final char COLOR_BLUE = 'b';
 	private final char COLOR_ORANGE = 'o';
-	private final char COLOR_YELLOW = 'y';
+	//private final char COLOR_YELLOW = 'y';
 	private final char COLOR_WHITE = 'w';
 	// need to add black, which is currently the default
 	
-	// denotes which player's piece is in the board index
-	private final int EMPTY = 0;
-	private final int SYSTEM = 1;
-	private final int END_USER = 2;
 	
 	private Mat capturedFrame; // raw image
 	private Mat processedFrame; // processed image
 	private BufferedImage img; // image of board
-	private int board[]; // holds where pieces are
+	private byte board[]; // holds where pieces are
+	private byte captured[]; // holds where captured pieces are; even is left side, odd is right
+	
 	
 	/**
 	 * Constructor: creates 2 mat objects:
@@ -50,13 +49,89 @@ public class CaptureImage {
 		System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
 		capturedFrame = new Mat();
 		processedFrame = new Mat();
-		board = new int[32];
+		board = new byte[32];
+		captured = new byte[12];
 	}
 	
 	/**
-	 * Processes an image
-	 * @param in image captured
-	 * @param out processed image
+	 * Determines where captured pieces are
+	 * @param in Mat image of the board
+	 */
+	
+	public void findCaptured(Mat in)
+	{
+		int vsegment = in.rows() / 8; // only accounts 8 playable
+		int hsegment = in.cols() / 12; // 8 playable, 2 capture, 2 extra
+		int offset; // offset for playable board
+		
+		int capSquares = 12; // number of capture squares
+		int rowNum = 1; // starting row number for capture squares
+		int rightdx = 48;
+		int leftdx = 0;
+		offset = hsegment;
+		int count = 0;
+		// keep track of captured squares
+		// left: end user, right: system
+		for (int i = 0; i < capSquares; i++)
+		{	
+			// find where roi should be
+			Point p1 = new Point(offset + count * hsegment, rowNum * vsegment); // top left point of rectangle (x,y)
+			Point p2 = new Point(offset + (count + 1) * hsegment, (rowNum + 1) * vsegment); // bottom right point of rectangle (x,y)
+			// create rectangle that is board square
+			Rect bound = new Rect(p1, p2);
+			
+			char color;
+			
+			// frame only includes rectangle
+			Mat roi = new Mat(in, bound);
+			
+			// get the color
+			color = identifyColor(roi);
+			
+			switch(color)
+			{
+				case COLOR_BLUE:
+					//Imgproc.rectangle(in, p1, p2, new Scalar(255, 0, 0), 3);
+					Core.rectangle(in, p1, p2, new Scalar(255, 0, 0), 2);
+					captured[i] = 1;
+					break;
+				case COLOR_ORANGE:
+					//Imgproc.rectangle(in, p1, p2, new Scalar(0, 128, 255), 3);
+					Core.rectangle(in, p1, p2, new Scalar(0, 128, 255), 2);
+					captured[i] = 1;
+					break;
+				case COLOR_WHITE:
+					//Imgproc.rectangle(in, p1, p2, new Scalar(255, 255, 255), 3);
+					Core.rectangle(in, p1, p2, new Scalar(255, 255, 255), 2);
+					captured[i] = 0;
+					break;
+				default: // this is black
+					//Imgproc.rectangle(in, p1, p2, new Scalar(0, 0, 0), 3);
+					Core.rectangle(in, p1, p2, new Scalar(255, 255, 255), 2);
+					captured[i] = 0;
+					break;
+			}
+			
+			count++;
+			if (count == 1)
+			{
+				offset = hsegment * 10 - rightdx;
+			}
+			else if (count == 2)
+			{
+				count = 0;
+				rightdx -= 6;
+				leftdx += 6;
+				offset = hsegment - leftdx;
+				rowNum++;
+			}
+		}
+	}
+	
+	/**
+	 * Processes the board image
+	 * @param in image captured of board
+	 * @param out processed image of board
 	 */
 	
 	public void processFrame(Mat in, Mat out)
@@ -64,55 +139,38 @@ public class CaptureImage {
 		// multiple regions of interest
 		
 		int playSquares = 32; // number of playable game board squares
-		int capSquares = 16; // number of capture squares
-		int totalSquares = playSquares + capSquares; // all regions of interest
 		
 		// keep track of starting row square
 		int parity = 0; // 0 is even, 1 is odd, tied to row number
 		int count = 0; // row square
 		int rowNum = 0; // row number, starting at 0
 		
-		
-		// segment values will need to be adjusted when camera is finally set
-		// idea that captured pieces are on left and right
-		
-		
 		int vsegment = in.rows() / 8; // only accounts 8 playable
-		int hsegment = in.cols() / 12; // 8 playable, 2 capture, 2 extra
-		//int vcenter = vsegment / 2; // vertical distance between segments
-		//int hcenter = hsegment / 2; // horizontal distance between segments
-		int offset = hsegment * 2; // offset for playable board
-		// For angle of camera. Probably not be necessary
-		int angleAdjustment = 0; // Will have to change based on center of board and distance from camera
+		int hsegment = in.cols() / 10; // 8 playable, 2 capture
+		int hOffset = hsegment * 2; // offset for playable board
+		int vOffset = vsegment + 40;
 		
+		// For angle of camera
+		int dx = 48;
+		hsegment -= 8;
+		
+		int dy = 20;
+		vsegment -= 24;
 		
 		// Go through all playable squares
 		for (int i = 0; i < playSquares; i++)
 		{
 			// change offset depending on the row
-			if (parity == 0) // playable squares start on immediate left
-				offset = hsegment * 2;
-			else // playable squares start on 2nd square from left
-				offset = hsegment * 3;
-			/*
-			// change offset if it is a left-side capture piece
-			if (i == 0 || i == 6 || i == 12 || i == 18 || i == 24 || i == 30 || i == 36 || i == 42)
-			{
-				offset = hsegment * 3 / 4;
-			}
-			
-			// change offset if it is a right-side capture piece
-			if (i == 5 || i == 11 || i == 17 || i == 23 || i == 29 || i == 35 || i == 41 || i == 47)
-			{
-				offset = hsegment * 11;
-			}
-			*/
+			if (parity == 0) // playable squares start on 2nd square from left
+				hOffset = hsegment * 2 + dx;
+			else // playable squares start on immediate left
+				hOffset = hsegment + dx;
+
 			// find where roi should be
-			Point p1 = new Point(offset + count * hsegment, rowNum * vsegment); // top left point of rectangle (x,y)
-			Point p2 = new Point(offset + (count + 1) * hsegment, (rowNum + 1) * vsegment); // bottom right point of rectangle (x,y)
+			//System.out.println("" + vOffset);
+			Point p1 = new Point(hOffset + count * hsegment, vOffset + rowNum * vsegment - dy); // top left point of rectangle (x,y)
+			Point p2 = new Point(hOffset + (count + 1) * hsegment, vOffset + (rowNum + 1) * vsegment - dy); // bottom right point of rectangle (x,y)
 			
-			//System.out.println(p1.toString());
-			//System.out.println(p2.toString());
 			// create rectangle that is board square
 			Rect bound = new Rect(p1, p2);
 			
@@ -138,114 +196,158 @@ public class CaptureImage {
 			}
 			
 			// annotate the output image
-			// should piece locations be saved in array in this file?
 			// scalar values as (blue, green, red)
 			switch(color)
 			{
-				case COLOR_RED:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 255), 3);
-					board[i] = EMPTY;
-					break;
-				case COLOR_GREEN:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 0), 3);
-					board[i] = EMPTY;
-					break;
 				case COLOR_BLUE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 3);
-					board[i] = SYSTEM; // system's piece
-					break;
-				case COLOR_YELLOW:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 255), 3);
-					board[i] = EMPTY;
+					//Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
+					Core.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
+					board[i] = CheckersBoard.BLACK; // end user's piece
 					break;
 				case COLOR_ORANGE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 3);
-					board[i] = END_USER; // end user's piece
+					//Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
+					Core.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
+					board[i] = CheckersBoard.WHITE; // system's piece
 					break;
 				case COLOR_WHITE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 3);
-					board[i] = EMPTY;
+					//Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
+					Core.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
+					board[i] = CheckersBoard.EMPTY;
 					break;
 				default: // this is black
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 3);
-					board[i] = EMPTY;
+					//Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2);
+					Core.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2); // maybe add 8, 0 as line type and fractional bits
+					board[i] = CheckersBoard.EMPTY;
 					break;
 			}
 			
 			count += 2;
-			/*
-			// change count back to zero if capture piece
-			if (i == 0 || i == 6 || i == 12 || i == 18 || i == 24 || i == 30 || i == 36 || i == 42 ||
-					i == 5 || i == 11 || i == 17 || i == 23 || i == 29 || i == 35 || i == 41 || i == 47)
-			{
-				count = 0;
-			}
-			*/
 			if (count == 8)
 			{
 				parity = ++parity % 2; // change odd or even
 				count = 0;
 				rowNum++;
+				hsegment += 1;
+				dx -= 6;
+				dy += 10;
+				vsegment += 3;
 			}
 		}
+	}
+	
+	/**
+	 * Determines which pieces are kings
+	 * @param in Mat image of board
+	 */
+	
+	public void determineKings(Mat in)
+	{
+		int playSquares = 32;
 		
-		/*
-		rowNum = 0; // starting row number for capture squares
-		offset = hsegment * 0;
-		count = 0;
-		// keep track of captured squares
-		// left: end user, right: system
-		for (int i = 0; i < capSquares; i++)
+		Mat dst = new Mat(in.rows(), in.cols(), in.type());
+        in.copyTo(dst);
+
+        Imgproc.cvtColor(dst, dst, Imgproc.COLOR_BGR2GRAY); // change to single color
+        
+        Mat canny = new Mat();
+        Imgproc.Canny(dst, canny, 10, 50); // make image a canny image that is only edges; 2,4
+        // lower threshold values find more edges
+        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+        Mat hierarchy = new Mat(); // holds nested contour information
+        Imgproc.findContours(canny, contours, hierarchy, Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE); // Imgproc.RETR_LIST, TREE
+        
+        //draw contour image
+        Mat mask = new Mat();
+        mask = Mat.zeros(dst.size(), dst.type());
+        Imgproc.drawContours(mask, contours, -1, new Scalar(255,255,255), 1, 8, hierarchy, 2, new Point());
+        Highgui.imwrite("contours.jpg", mask);
+
+		
+		ArrayList occupied = new ArrayList<Integer>();
+		for (int i = 0; i < playSquares; i++)
+		{
+			if (board[i] != 0)
+				occupied.add(i);
+		}
+		
+		for (int i = 0; i < contours.size(); i++) // assuming only contours are checker pieces
 		{	
+			// determine if it should be a king
+			// use Rect r = Imgproc.boundingRect then find height of it by r.height
+			
+            // Get bounding rect of contour
+            Rect bound = Imgproc.boundingRect(contours.get(i));
+            
+            if (bound.height > in.rows() / 8)
+			{
+				//board[(int) occupied.get(0)]++; // make it a king
+				//occupied.remove(0);
+			}
+		}
+        
+        
+        
+        // or apply to each region of interest
+        
+        /*		
+		// keep track of starting row square
+		int parity = 0; // 0 is even, 1 is odd, tied to row number
+		int count = 0; // row square
+		int rowNum = 0; // row number, starting at 0
+		
+		int vsegment = in.rows() / 8; // only accounts 8 playable
+		int hsegment = in.cols() / 12; // 8 playable, 2 capture, 2 extra
+		int offset = hsegment * 2; // offset for playable board
+		
+		// For angle of camera
+		int dx = 48;
+		hsegment -= 8;
+		
+		
+		// Go through all playable squares
+		for (int i = 0; i < playSquares; i++)
+		{
+			// change offset depending on the row
+			if (parity == 0) // playable squares start on immediate left
+				offset = hsegment * 3 + dx;
+			else // playable squares start on 2nd square from left
+				offset = hsegment * 2 + dx;
+
 			// find where roi should be
 			Point p1 = new Point(offset + count * hsegment, rowNum * vsegment); // top left point of rectangle (x,y)
 			Point p2 = new Point(offset + (count + 1) * hsegment, (rowNum + 1) * vsegment); // bottom right point of rectangle (x,y)
+			
 			// create rectangle that is board square
 			Rect bound = new Rect(p1, p2);
 			
-			char color;
-			
 			// frame only includes rectangle
-			Mat roi = new Mat(out, bound);
+			Mat roi = new Mat(in, bound);
+
+	        Imgproc.cvtColor(roi, roi, Imgproc.COLOR_BGR2GRAY); // change to single color
+	        
+	        Mat canny = new Mat();
+	        Imgproc.Canny(roi, canny, 2, 4); // make image a canny image that is only edges; 2,4
+	        // lower threshold values find more edges
+	        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+	        Mat hierarchy = new Mat(); // holds nested contour information
+	        Imgproc.findContours(canny, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE); // Imgproc.RETR_LIST, TREE
 			
-			// get the color
-			color = identifyColor(roi);
-			
-			switch(color)
+	        // Get bounding rect of contour
+            Rect rect = Imgproc.boundingRect(contours.get(0));
+            
+            if (rect.height > in.rows() / 8)
 			{
-				case COLOR_RED:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 255), 3);
-					break;
-				case COLOR_GREEN:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 0), 3);
-					break;
-				case COLOR_BLUE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 3);
-					break;
-				case COLOR_YELLOW:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 255, 255), 3);
-					break;
-				case COLOR_ORANGE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 3);
-					break;
-				case COLOR_WHITE:
-					Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 3);
-					break;
-				default: // this is black
-					Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 3);
-					break;
+				board[i]++; // make it a king
 			}
-			
-			count++;
-			if (count == 1)
+	        
+			count += 2;
+			if (count == 8)
 			{
-				offset = hsegment * 10 + 50;
-			}
-			else if (count == 2)
-			{
+				parity = ++parity % 2; // change odd or even
 				count = 0;
-				offset = hsegment * 10;
 				rowNum++;
+				hsegment += 1;
+				dx -= 6;
 			}
 		}*/
 	}
@@ -335,18 +437,20 @@ public class CaptureImage {
 		
 		
 		// define the reference color values
-		double RED[] = {0.4, 0.5, 1.8};
-		double GREEN[] = {1.0, 1.2, 1.0};
+		//double RED[] = {0.4, 0.5, 1.8};
+		//double GREEN[] = {1.0, 1.2, 1.0};
 		double BLUE[] = {1.75, 1.0, 0.5};
-		double YELLOW[] = {0.82, 1.7, 1.7};
+		//double YELLOW[] = {0.82, 1.7, 1.7};
 		double ORANGE[] = {0.2, 1.0, 2.0};
 		double WHITE[] = {2.0, 1.7, 1.7};
+		//double BLACK[] = {0.0, 0.3, 0.3};
 		
 		// compute the square error relative to the reference color values
+		//double minError = 3.0;
 		double minError = 3.0;
 		double errorSqr;
 		char bestFit = 'x';
-		
+		/*
 		// check RED fitness
 		errorSqr = normSqr(RED[0], RED[1], RED[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
@@ -360,21 +464,21 @@ public class CaptureImage {
 		{
 			minError = errorSqr;
 			bestFit = COLOR_GREEN;
-		}
+		}*/
 		// check BLUE fitness
 		errorSqr = normSqr(BLUE[0], BLUE[1], BLUE[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
 			bestFit = COLOR_BLUE;
-		}
+		}/*
 		// check YELLOW fitness
 		errorSqr = normSqr(YELLOW[0], YELLOW[1], YELLOW[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
 			bestFit = COLOR_YELLOW;
-		}
+		}*/
 		// check ORANGE fitness
 		errorSqr = normSqr(ORANGE[0], ORANGE[1], ORANGE[2], bavg, gavg, ravg);
 		if(errorSqr < minError)
@@ -415,11 +519,14 @@ public class CaptureImage {
 	 */
 	
 	public void capture()
-	{
-		//System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
-	    
+	{   
 	    VideoCapture camera = new VideoCapture();
+	    
+	    camera.set(12, -20); // change contrast, might not be necessary
+	    
 	    CaptureImage image = new CaptureImage();
+	    
+	    
 	    
 	    camera.open(0); //Useless
 	    if(!camera.isOpened())
@@ -441,19 +548,23 @@ public class CaptureImage {
 		    image.processFrame(capturedFrame, processedFrame);
 		    // processedFrame should be CV_8UC3
 		    
+		    //image.findCaptured(processedFrame);
+		    
+		    image.determineKings(capturedFrame);
+		    
 		    int bufferSize = processedFrame.channels() * processedFrame.cols() * processedFrame.rows();
 		    byte[] b = new byte[bufferSize];
 		    
 		    processedFrame.get(0,0,b); // get all the pixels
 		    // This might need to be BufferedImage.TYPE_INT_ARGB
 		    img = new BufferedImage(processedFrame.cols(), processedFrame.rows(), BufferedImage.TYPE_INT_RGB);
-		    int width = (int)camera.get(Videoio.CAP_PROP_FRAME_WIDTH);
-		    int height = (int)camera.get(Videoio.CAP_PROP_FRAME_HEIGHT);
+		    int width = (int)camera.get(Highgui.CAP_PROP_FRAME_WIDTH);
+		    int height = (int)camera.get(Highgui.CAP_PROP_FRAME_HEIGHT);
 		    //img.getRaster().setDataElements(0, 0, width, height, b);
 		    byte[] a = new byte[bufferSize];
 		    System.arraycopy(b, 0, a, 0, bufferSize);
 		    
-		    Imgcodecs.imwrite("camera.jpg",processedFrame);
+		    Highgui.imwrite("camera.jpg",processedFrame);
 		    System.out.println("Success");
 		}
 		else
@@ -475,9 +586,14 @@ public class CaptureImage {
 	 * @return state of board
 	 */
 	
-	public int[] getBoard()
+	public byte[] getBoard()
 	{
 		return this.board;
+	}
+	
+	public byte[] getCaptured()
+	{
+		return this.captured;
 	}
 	
 	public static void main(String args[])
