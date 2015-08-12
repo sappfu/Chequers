@@ -512,6 +512,7 @@ public class CaptureImage {
 		
 		// check BLUE fitness
 		errorSqr = normSqr(BLUE[0], BLUE[1], BLUE[2], bavg, gavg, ravg);
+		System.out.println("Blue: " + errorSqr);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
@@ -519,6 +520,7 @@ public class CaptureImage {
 		}
 		// check ORANGE fitness
 		errorSqr = normSqr(ORANGE[0], ORANGE[1], ORANGE[2], bavg, gavg, ravg);
+		System.out.println("Orange: " + errorSqr);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
@@ -526,6 +528,7 @@ public class CaptureImage {
 		}
 		// check WHITE fitness
 		errorSqr = normSqr(WHITE[0], WHITE[1], WHITE[2], bavg, gavg, ravg);
+		System.out.println("White: " + errorSqr);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
@@ -533,6 +536,7 @@ public class CaptureImage {
 		}
 		// check BLACK fitness
 		errorSqr = normSqr(BLACK[0], BLACK[1], BLACK[2], bavg, gavg, ravg);
+		System.out.println("Black: " + errorSqr);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
