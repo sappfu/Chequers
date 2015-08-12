@@ -176,12 +176,26 @@ public class CaptureImage {
 				hOffset = hsegment + dx;
 			}
 			
-			if (rowNum >= 5)
-			{
+			if (rowNum == 5)
 				if (count > 0)
-				{
 					ddx = 12;
-				}
+			if (rowNum == 6)
+			{
+				if (count == 2)
+					ddx = 16;
+				else if (count == 4)
+					ddx = 20;
+				else if (count == 6)
+					ddx = 24;
+			}
+			if (rowNum == 7)
+			{
+				if (count == 2)
+					ddx = 16;
+				else if (count == 4)
+					ddx = 24;
+				else if (count == 6)
+					ddx = 32;
 			}
 
 			// find where roi should be
