@@ -182,9 +182,9 @@ public class CaptureImage {
 			if (rowNum == 5)
 			{
 				if (count == 0)
-					ddx = -10;
+					ddx = -6;
 				else if (count == 2)
-					ddx = 10;
+					ddx = 6;
 				else if (count == 4)
 					ddx = 12;
 				else if (count == 6)
@@ -193,7 +193,7 @@ public class CaptureImage {
 			if (rowNum == 6)
 			{
 				if (count == 0)
-					ddx = -10;
+					ddx = 0;
 				else if (count == 2)
 					ddx = 16;
 				else if (count == 4)
@@ -204,7 +204,7 @@ public class CaptureImage {
 			if (rowNum == 7)
 			{
 				if (count == 0)
-					ddx = -4;
+					ddx = 0;
 				else if (count == 2)
 					ddx = 24;
 				else if (count == 4)
