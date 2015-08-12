@@ -14,13 +14,13 @@ import com.pi4j.io.gpio.event.GpioPinListenerDigital;
 
 public class Decoder {
 
-    ButtonOne buttonOne;
-    ButtonTwo buttonTwo;
-    ButtonThree buttonThree;
+    private ButtonOne buttonOne;
+    private ButtonTwo buttonTwo;
+    private ButtonThree buttonThree;
 
-    final GpioPinDigitalInput button1;
-    final GpioPinDigitalInput button2;
-    final GpioPinDigitalInput button3;
+    private GpioPinDigitalInput button1;
+    private GpioPinDigitalInput button2;
+    private GpioPinDigitalInput button3;
 
     final GpioController gpio = GpioFactory.getInstance();
 
