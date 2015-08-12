@@ -200,7 +200,7 @@ public class CaptureImage {
 			if (rowNum == 7)
 			{
 				if (count == 0)
-					ddx = -10;
+					ddx = -4;
 				else if (count == 2)
 					ddx = 24;
 				else if (count == 4)
