@@ -21,6 +21,7 @@ public class ProcessingDecision {
     private VisionRequestHandlerInterface visionRequestHandler;
     private ValidatorRequestHandlerInterface validatorRequestHandler;
     private MoveGeneratorRequestHandlerInterface moveGeneratorRequestHandler;
+    //private CheckersBoard b;
 
     public ProcessingDecision(){
         visionRequestHandler = new VisionRequestHandler();
@@ -37,8 +38,10 @@ public class ProcessingDecision {
         try {
             if (board != null) {
                 result = validatorRequestHandler.validate(board);
+                //setBoard(board);
                 if (result == true) {
-                    return moveGeneratorRequestHandler.getMove(board);
+                    //return moveGeneratorRequestHandler.getMove(b);
+                	return moveGeneratorRequestHandler.getMove(board);
                 }
                 else {
                     ArrayList<MoveInterface> invalidResult = new ArrayList<MoveInterface>();
@@ -54,4 +57,9 @@ public class ProcessingDecision {
             throw new RuntimeException(e);
         }
     }
+    
+    /*public void setBoard(CheckersBoard board)
+    {
+    	b = board;
+    }*/
 }

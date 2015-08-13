@@ -29,5 +29,7 @@ public class ProcessingRequestHandler extends Observable implements Runnable {
         notifyObservers(board);
         setChanged();
         notifyObservers(processingDecision.decide(board));
+        //setChanged();
+        //notifyObservers(board);
     }
 }

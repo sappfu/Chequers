@@ -23,7 +23,10 @@ public class Compare implements CompareInterface{
     }
 
     public boolean compare(CheckersBoard board) {
-        return compareMoveToList(this.checkBoard(board));
+    	// added here to check kings
+    	//CheckersBoard temp = checkKings(board);
+        //return compareMoveToList(this.checkBoard(temp), temp);
+    	return compareMoveToList(this.checkBoard(board));
     }
 
     private Move checkBoard(CheckersBoard currentBoard) {
@@ -41,7 +44,7 @@ public class Compare implements CompareInterface{
         return move;
     }
 
-    private boolean compareMoveToList(Move move){
+    private boolean compareMoveToList(Move move){ //, CheckersBoard board){
         boolean resultTo = false;
         boolean resultFrom = false;
         previousBoard.setCurrentPlayer(2);
@@ -58,8 +61,30 @@ public class Compare implements CompareInterface{
                     resultTo = true;
             }
         }
+        //if (resultTo && resultFrom)
+        	//previousBoard = board;
         return resultTo&&resultFrom;
     }
-
-
+    
+    /*public CheckersBoard checkKings(CheckersBoard board)
+    {
+    	byte[] currentBoard = board.getPieces();
+    	byte[] oldBoard = previousBoard.getPieces();
+    	for (int i = 0; i < 32; i++)
+    	{
+    		if (oldBoard[i] == CheckersBoard.WHITE_KING && currentBoard[i] == CheckersBoard.WHITE)
+    			currentBoard[i]++;
+    		if (oldBoard[i] == CheckersBoard.BLACK_KING && currentBoard[i] == CheckersBoard.BLACK)
+    			currentBoard[i]++;
+    		if (oldBoard[i] == 0 && currentBoard[i] == CheckersBoard.BLACK)
+    			{
+    				if (oldBoard[i+4] == CheckersBoard.BLACK_KING && currentBoard[i+4] == 0)
+    					currentBoard[i] = CheckersBoard.BLACK_KING;
+    				else if (oldBoard[i+4] == CheckersBoard.BLACK_KING && currentBoard[i+4] == 0)
+    					currentBoard[i] = CheckersBoard.BLACK_KING;
+    			}
+    	}
+    	board.setPieces(currentBoard);
+    	return board;
+    }*/
 }
