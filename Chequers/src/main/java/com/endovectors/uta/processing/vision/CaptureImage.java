@@ -402,6 +402,163 @@ public class CaptureImage {
 		}*/
 	}
 	
+	public void processWithContours(Mat in, Mat out)
+	{
+		int playSquares = 32; // number of playable game board squares
+		
+		// keep track of starting row square
+		int parity = 0; // 0 is even, 1 is odd, tied to row number
+		int count = 0; // row square
+		int rowNum = 0; // row number, starting at 0
+		
+		int vsegment = in.rows() / 8; // only accounts 8 playable
+		int hsegment = in.cols() / 10; // 8 playable, 2 capture
+		int hOffset = hsegment * 2; // offset for playable board
+		int vOffset = vsegment + 40;
+		
+		// For angle of camera
+		int dx = 80;
+		int ddx = 0;
+		hsegment -= 16;
+		
+		int dy = 20;
+		vsegment -= 24;
+		
+		// Go through all playable squares
+		for (int i = 0; i < playSquares; i++)
+		{
+			// change offset depending on the row
+			if (parity == 0) // playable squares start on 2nd square from left
+			{
+				if (rowNum >= 5)
+					dx -= 3;
+				hOffset = hsegment * 2 + dx;
+			}
+			else // playable squares start on immediate left
+			{
+				if (rowNum >= 5)
+					dx -= 3;
+				hOffset = hsegment + dx;
+			}
+			
+			if (rowNum == 4)
+				if (count == 6)
+					ddx = 10;
+			if (rowNum == 5)
+			{
+				if (count == 0)
+					ddx = -6;
+				else if (count == 2)
+					ddx = 6;
+				else if (count == 4)
+					ddx = 12;
+				else if (count == 6)
+					ddx = 20;
+			}
+			if (rowNum == 6)
+			{
+				if (count == 0)
+					ddx = 0;
+				else if (count == 2)
+					ddx = 16;
+				else if (count == 4)
+					ddx = 32;
+				else if (count == 6)
+					ddx = 40;
+			}
+			if (rowNum == 7)
+			{
+				if (count == 0)
+					ddx = 0;
+				else if (count == 2)
+					ddx = 24;
+				else if (count == 4)
+					ddx = 40;
+				else
+					ddx = 52;
+			}
+
+			// find where roi should be
+			//System.out.println("" + vOffset);
+			Point p1 = new Point(hOffset + count * hsegment + ddx, vOffset + rowNum * vsegment - dy); // top left point of rectangle (x,y)
+			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx, vOffset + (rowNum + 1) * vsegment - dy); // bottom right point of rectangle (x,y)
+			
+			// create rectangle that is board square
+			Rect bound = new Rect(p1, p2);
+			
+			Mat roi;
+			char color;
+			if (i == 0)
+			{
+				// frame only includes rectangle
+				roi = new Mat(in, bound);
+				
+				// get the color
+				color = identifyColor(roi);
+				
+				// copy input image to output image
+				in.copyTo(out);
+			}
+			else
+			{
+				// frame only includes rectangle
+				roi = new Mat(out, bound);
+				
+				// get the color
+				color = identifyColor(roi);
+			}
+			
+			
+			Imgproc.cvtColor(roi, roi, Imgproc.COLOR_BGR2GRAY); // change to single color
+	        
+	        Mat canny = new Mat();
+	        Imgproc.Canny(roi, canny, 2, 4); // make image a canny image that is only edges; 2,4
+	        // lower threshold values find more edges
+	        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+	        Mat hierarchy = new Mat(); // holds nested contour information
+	        Imgproc.findContours(canny, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE); // Imgproc.RETR_LIST, TREE
+			
+	        if (contours.size() > 1)
+	        {
+	        	switch(color)
+				{
+					case COLOR_BLUE:
+						//Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
+						Core.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
+						board[i] = CheckersBoard.BLACK; // end user's piece
+						break;
+					case COLOR_ORANGE:
+						//Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
+						Core.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
+						board[i] = CheckersBoard.WHITE; // system's piece
+						break;
+					case COLOR_WHITE:
+						//Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
+						Core.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
+						board[i] = CheckersBoard.EMPTY;
+						break;
+					case COLOR_BLACK: // this is black
+						//Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2);
+						Core.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2); // maybe add 8, 0 as line type and fractional bits
+						board[i] = CheckersBoard.EMPTY;
+						break;
+				}
+	        }
+			
+			count += 2;
+			if (count == 8)
+			{
+				parity = ++parity % 2; // change odd or even
+				count = 0;
+				rowNum++;
+				hsegment += 2;
+				dx -= 10;
+				dy += 10;
+				vsegment += 3;
+			}
+		}
+	}
+	
 	/**
 	 * Identifies the color in the frame
 	 * @param in the Mat image in the region of interest
@@ -602,7 +759,8 @@ public class CaptureImage {
 		boolean success = camera.read(capturedFrame);
 		if (success)
 		{
-		    image.processFrame(capturedFrame, processedFrame);
+			image.processWithContours(capturedFrame, processedFrame);
+		    //image.processFrame(capturedFrame, processedFrame);
 		    // processedFrame should be CV_8UC3
 		    
 		    //image.findCaptured(processedFrame);
