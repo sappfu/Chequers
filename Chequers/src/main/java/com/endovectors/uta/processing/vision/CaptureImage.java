@@ -300,7 +300,7 @@ public class CaptureImage {
         Imgproc.cvtColor(dst, dst, Imgproc.COLOR_BGR2GRAY); // change to single color
         
         Mat canny = new Mat();
-        Imgproc.Canny(dst, canny, 50, 100); // make image a canny image that is only edges; 2,4
+        Imgproc.Canny(dst, canny, 2, 4); // make image a canny image that is only edges; 2,4
         // lower threshold values find more edges
         List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
         Mat hierarchy = new Mat(); // holds nested contour information
