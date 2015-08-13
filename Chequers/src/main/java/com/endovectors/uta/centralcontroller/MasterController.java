@@ -81,6 +81,12 @@ public class MasterController implements Observer {
 			ArrayList<MoveInterface> result = (ArrayList<MoveInterface>) arg;
 			state.setNextMoves(result);
 			if (result.get(0).getClass() == Move.class) {
+				if(result.size() > 3){
+					presentationRequestHandler.speak(SpeechEnum.reallyGoodMove);
+				}
+				else if(result.size() > 2){
+					presentationRequestHandler.speak(SpeechEnum.goodMove);
+				}
 				startHardware();
 			}
 			if (result.get(0).getClass() == InvalidMove.class) {
