@@ -20,9 +20,9 @@ public class Face extends JPanel
 		g.setColor(Color.WHITE);
 		
 		//g.fillRect(width / 4, height / 10 + height / 4, width / 10, height / 60); // left eye
-		g.fillOval(width / 4, height / 10 + height / 4, width / 20, height / 20);
+		g.fillOval(width / 4, height / 10 + height / 4 + height / 75, width / 20, height / 20);
 		//g.fillRect(width - width / 4, height / 10 + height / 4, width / 10, height / 60); // right eye
-		g.fillOval(width - width / 4, height / 10 + height / 4, width / 20, height / 20);
+		g.fillOval(width - width / 4 + width / 60, height / 10 + height / 4 + height / 75, width / 20, height / 20);
 		
 		g.setColor(Color.BLACK);
 		
@@ -32,6 +32,6 @@ public class Face extends JPanel
 		
 		//g.fillRect(width / 4, height / 2 + height / 8, width / 2 + width / 10, height/ 75); // mouth
 		//g.setColor(Color.BLACK);
-		g.fillArc(width / 4, height / 2 + height / 8, width / 2 + width / 10, height / 5, 0, -180); // mouth
+		g.drawArc(width / 4, height / 2 + height / 8, width / 2 + width / 10, height / 5, 0, -180); // mouth
 	}
 }
