@@ -518,7 +518,9 @@ public class CaptureImage {
 	        Mat hierarchy = new Mat(); // holds nested contour information
 	        Imgproc.findContours(canny, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE); // Imgproc.RETR_LIST, TREE
 			
-	        if (contours.size() > 1)
+	        System.out.println(++test + "\t" + contours.size());
+	        
+	        if (contours.size() > 2)
 	        {
 	        	switch(color)
 				{
@@ -671,8 +673,8 @@ public class CaptureImage {
 		char bestFit = 'x';
 		
 		
-		test++;
-		System.out.print("\n\n" + test + "\n\n");
+		//test++;
+		//System.out.print("\n\n" + test + "\n\n");
 		
 		
 		// check BLUE fitness
