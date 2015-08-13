@@ -66,9 +66,10 @@ public class GUI extends JFrame {
         //getContentPane().add(cards);
         add(cards);
         
-        this.setSize(800, 800);
+        //this.setSize(800, 800);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
-        
     }
 
     public void setButtonState(ButtonStatesEnum state){
