@@ -505,7 +505,7 @@ public class CaptureImage {
 		//double YELLOW[] = {0.82, 1.7, 1.7};
 		double ORANGE[] = {0.2, 1.0, 2.0};
 		double WHITE[] = {2.0, 1.7, 1.7};
-		double BLACK[] = {0.0, 0.3, 0.3};
+		//double BLACK[] = {0.0, 0.3, 0.3};
 		
 		// compute the square error relative to the reference color values
 		//double minError = 3.0;
@@ -543,13 +543,13 @@ public class CaptureImage {
 			bestFit = COLOR_WHITE;
 		}
 		// check BLACK fitness
-		errorSqr = normSqr(BLACK[0], BLACK[1], BLACK[2], bavg, gavg, ravg);
+		/*errorSqr = normSqr(BLACK[0], BLACK[1], BLACK[2], bavg, gavg, ravg);
 		System.out.println("Black: " + errorSqr);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
 			bestFit = COLOR_BLACK;
-		}
+		}*/
 		
 		// return the best fit color label
 		return bestFit;
