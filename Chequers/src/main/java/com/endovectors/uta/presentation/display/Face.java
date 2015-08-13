@@ -32,6 +32,6 @@ public class Face extends JPanel
 		
 		//g.fillRect(width / 4, height / 2 + height / 8, width / 2 + width / 10, height/ 75); // mouth
 		//g.setColor(Color.BLACK);
-		g.fillArc(width / 4, height / 2 + height / 8, width / 2 + width / 10, height / 20, 0, -180); // mouth
+		g.fillArc(width / 4, height / 2 + height / 8, width / 2 + width / 10, height / 5, 0, -180); // mouth
 	}
 }
