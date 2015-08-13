@@ -4,6 +4,7 @@ import com.endovectors.uta.centralcontroller.MasterController;
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
 import com.endovectors.uta.processing.MoveInterface;
 import com.endovectors.uta.processing.Move;
+import com.endovectors.uta.arduinoCommunication.UsbComm;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -42,6 +43,7 @@ public class HardwareRequestHandler extends Observable implements Runnable, Hard
             position.append("0");
             position.append(/);
             String coordinates = position.toString();
+            UsbComm.instruction(coordinates);
             
             setChanged();
             notifyObservers(ButtonStatesEnum.PLAY_STATE); //this is how you notify central controller when move is complete or other data
