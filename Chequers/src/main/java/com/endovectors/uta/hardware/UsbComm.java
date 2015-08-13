@@ -105,15 +105,7 @@ public class UsbComm implements SerialPortEventListener {
 			}
 		}	
 	}
-
-	// main method
-	public static void main(String[] args) {
-		UsbComm arduinoComm = new UsbComm(); // creates an object of the class
-		arduinoComm.initialize();
-		arduinoComm.portConnect();
-		while (true)
-		{
-			inputString = new Scanner(System.in); // get instructions to send to Arduino
+	public void instruction(String str){
 			moveInstr = inputString.nextLine();
 			moveInstr = moveInstr + '\n';
 			System.out.print("Sending: ");
@@ -124,6 +116,17 @@ public class UsbComm implements SerialPortEventListener {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} // sends the user name
+		
+	}
+
+	// main method
+	public static void main(String[] args) {
+		UsbComm arduinoComm = new UsbComm(); // creates an object of the class
+		arduinoComm.initialize();
+		arduinoComm.portConnect();
+		while (true)
+		{
+			inputString = new Scanner(System.in); // get instructions to send to Arduino
 		}// wait till any activity		
 	}// end of main method	
 }
