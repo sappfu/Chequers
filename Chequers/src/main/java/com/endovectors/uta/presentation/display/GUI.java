@@ -20,7 +20,8 @@ public class GUI extends JFrame {
     JPanel cards;
     CardLayout cl;
 
-    public GUI(PresentationRequestHandler presentationRequestHandler) {
+    @SuppressWarnings("static-access")
+	public GUI(PresentationRequestHandler presentationRequestHandler) {
         super ("Checkers");
         /*
         this.setLayout(new GridLayout());
@@ -67,7 +68,7 @@ public class GUI extends JFrame {
         add(cards);
         
         //this.setSize(800, 800);
-        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setExtendedState(this.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
     }
