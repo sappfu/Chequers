@@ -4,7 +4,7 @@ import com.endovectors.uta.centralcontroller.MasterController;
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
 import com.endovectors.uta.processing.MoveInterface;
 import com.endovectors.uta.processing.Move;
-import com.endovectors.uta.arduinoCommunication.UsbComm;
+
 
 import java.util.ArrayList;
 import java.util.Observable;
