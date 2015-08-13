@@ -480,8 +480,8 @@ public class CaptureImage {
 
 			// find where roi should be
 			//System.out.println("" + vOffset);
-			Point p1 = new Point(hOffset + count * hsegment + ddx, vOffset + rowNum * vsegment - dy); // top left point of rectangle (x,y)
-			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx, vOffset + (rowNum + 1) * vsegment - dy); // bottom right point of rectangle (x,y)
+			Point p1 = new Point(hOffset + count * hsegment + ddx - 5, vOffset + rowNum * vsegment - dy -5); // top left point of rectangle (x,y)
+			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx - 5, vOffset + (rowNum + 1) * vsegment - dy - 5); // bottom right point of rectangle (x,y)
 			
 			// create rectangle that is board square
 			Rect bound = new Rect(p1, p2);
@@ -520,7 +520,7 @@ public class CaptureImage {
 			
 	        System.out.println(++test + "\t" + contours.size());
 	        
-	        if (contours.size() > 3)
+	        if (contours.size() > 3) // or error value for color is below 1
 	        {
 	        	switch(color)
 				{
