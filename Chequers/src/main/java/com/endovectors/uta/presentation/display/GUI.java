@@ -68,6 +68,7 @@ public class GUI extends JFrame {
         add(cards);
         
         //this.setSize(800, 800);
+        // JFrame
         setExtendedState(this.MAXIMIZED_BOTH);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setVisible(true);
