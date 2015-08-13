@@ -423,6 +423,7 @@ public class CaptureImage {
 		
 		int dy = 20;
 		vsegment -= 24;
+		int ddy = 0;
 		
 		// Go through all playable squares
 		for (int i = 0; i < playSquares; i++)
@@ -441,6 +442,8 @@ public class CaptureImage {
 				hOffset = hsegment + dx;
 			}
 			
+			if (rowNum == 0)
+				ddy = 5;
 			if (rowNum == 4)
 				if (count == 6)
 					ddx = 10;
@@ -480,8 +483,8 @@ public class CaptureImage {
 
 			// find where roi should be
 			//System.out.println("" + vOffset);
-			Point p1 = new Point(hOffset + count * hsegment + ddx + 5, vOffset + rowNum * vsegment - dy + 5); // top left point of rectangle (x,y)
-			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx - 5, vOffset + (rowNum + 1) * vsegment - dy - 5); // bottom right point of rectangle (x,y)
+			Point p1 = new Point(hOffset + count * hsegment + ddx + 5, vOffset + rowNum * vsegment - dy -5 - ddy); // top left point of rectangle (x,y)
+			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx - 5, vOffset + (rowNum + 1) * vsegment - dy - 5 - ddy); // bottom right point of rectangle (x,y)
 			
 			// create rectangle that is board square
 			Rect bound = new Rect(p1, p2);
@@ -557,6 +560,7 @@ public class CaptureImage {
 				dx -= 10;
 				dy += 10;
 				vsegment += 3;
+				ddy = 0;
 			}
 		}
 	}
