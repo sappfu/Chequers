@@ -20,9 +20,9 @@ public class Face extends JPanel
 		g.setColor(Color.WHITE);
 		
 		//g.fillRect(width / 4, height / 10 + height / 4, width / 10, height / 60); // left eye
-		g.fillOval(width / 4, height / 10 + height / 4 + height / 75, width / 20, height / 20);
+		g.fillOval(width / 4 + width / 60, height / 10 + height / 4 + height / 20, width / 20, height / 20);
 		//g.fillRect(width - width / 4, height / 10 + height / 4, width / 10, height / 60); // right eye
-		g.fillOval(width - width / 4 + width / 60, height / 10 + height / 4 + height / 75, width / 20, height / 20);
+		g.fillOval(width - width / 4 - width / 60, height / 10 + height / 4 + height / 20, width / 20, height / 20);
 		
 		g.setColor(Color.BLACK);
 		
