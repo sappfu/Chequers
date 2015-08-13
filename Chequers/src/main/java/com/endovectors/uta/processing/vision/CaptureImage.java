@@ -579,7 +579,7 @@ public class CaptureImage {
 	{   
 	    VideoCapture camera = new VideoCapture();
 	    
-	    camera.set(12, -40); // change contrast, might not be necessary
+	    //camera.set(12, -40); // change contrast, might not be necessary
 	    
 	    CaptureImage image = new CaptureImage();
 	    
