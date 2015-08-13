@@ -520,7 +520,7 @@ public class CaptureImage {
 			
 	        System.out.println(++test + "\t" + contours.size());
 	        
-	        if (contours.size() > 4)
+	        if (contours.size() > 3)
 	        {
 	        	switch(color)
 				{
