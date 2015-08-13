@@ -39,6 +39,9 @@ public class CaptureImage {
 	private byte captured[]; // holds where captured pieces are; even is left side, odd is right
 	
 	
+	static int test = 0;
+	
+	
 	/**
 	 * Constructor: creates 2 mat objects:
 	 * 				1 for the raw image;
@@ -509,6 +512,11 @@ public class CaptureImage {
 		double minError = 2.2;
 		double errorSqr;
 		char bestFit = 'x';
+		
+		
+		test++;
+		System.out.print("\n\n" + test + "\n\n");
+		
 		
 		// check BLUE fitness
 		errorSqr = normSqr(BLUE[0], BLUE[1], BLUE[2], bavg, gavg, ravg);
