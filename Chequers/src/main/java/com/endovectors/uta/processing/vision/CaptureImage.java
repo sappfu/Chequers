@@ -509,7 +509,7 @@ public class CaptureImage {
 		
 		// compute the square error relative to the reference color values
 		//double minError = 3.0;
-		double minError = 2.2;
+		double minError = 0.8;
 		double errorSqr;
 		char bestFit = 'x';
 		
