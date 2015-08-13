@@ -300,7 +300,7 @@ public class CaptureImage {
         Imgproc.cvtColor(dst, dst, Imgproc.COLOR_BGR2GRAY); // change to single color
         
         Mat canny = new Mat();
-        Imgproc.Canny(dst, canny, 2, 4); // make image a canny image that is only edges; 2,4
+        Imgproc.Canny(dst, canny, 100, 200); // make image a canny image that is only edges; 2,4
         // lower threshold values find more edges
         List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
         Mat hierarchy = new Mat(); // holds nested contour information
@@ -509,7 +509,7 @@ public class CaptureImage {
 		
 		// compute the square error relative to the reference color values
 		//double minError = 3.0;
-		double minError = 0.8;
+		double minError = 1.5;
 		double errorSqr;
 		char bestFit = 'x';
 		
@@ -579,7 +579,7 @@ public class CaptureImage {
 	{   
 	    VideoCapture camera = new VideoCapture();
 	    
-	    //camera.set(12, -20); // change contrast, might not be necessary
+	    camera.set(12, -20); // change contrast, might not be necessary
 	    
 	    CaptureImage image = new CaptureImage();
 	    
