@@ -480,8 +480,8 @@ public class CaptureImage {
 
 			// find where roi should be
 			//System.out.println("" + vOffset);
-			Point p1 = new Point(hOffset + count * hsegment + ddx - 5, vOffset + rowNum * vsegment - dy -5); // top left point of rectangle (x,y)
-			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx - 5, vOffset + (rowNum + 1) * vsegment - dy - 5); // bottom right point of rectangle (x,y)
+			Point p1 = new Point(hOffset + count * hsegment + ddx - 10, vOffset + rowNum * vsegment - dy -5); // top left point of rectangle (x,y)
+			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx - 10, vOffset + (rowNum + 1) * vsegment - dy - 5); // bottom right point of rectangle (x,y)
 			
 			// create rectangle that is board square
 			Rect bound = new Rect(p1, p2);
@@ -512,7 +512,7 @@ public class CaptureImage {
 			Imgproc.cvtColor(roi, roi, Imgproc.COLOR_BGR2GRAY); // change to single color
 	        
 	        Mat canny = new Mat();
-	        Imgproc.Canny(roi, canny, 25, 50); // make image a canny image that is only edges; 2,4
+	        Imgproc.Canny(roi, canny, 20, 80); // make image a canny image that is only edges; 2,4
 	        // lower threshold values find more edges
 	        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
 	        Mat hierarchy = new Mat(); // holds nested contour information
