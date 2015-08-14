@@ -16,5 +16,4 @@ public class VisionRequestHandler implements VisionRequestHandlerInterface {
     public CheckersBoard getBoard(){
         return dataFormatter.getBoard();
     }
-
 }
