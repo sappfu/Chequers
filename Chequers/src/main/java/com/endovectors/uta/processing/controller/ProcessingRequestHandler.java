@@ -25,11 +25,11 @@ public class ProcessingRequestHandler extends Observable implements Runnable {
     @Override
     public void run() {
         CheckersBoard board = processingDecision.decide();
-        setChanged();
-        notifyObservers(board);
-        setChanged();
-        notifyObservers(processingDecision.decide(board));
         //setChanged();
         //notifyObservers(board);
+        setChanged();
+        notifyObservers(processingDecision.decide(board));
+        setChanged();
+        notifyObservers(board);
     }
 }

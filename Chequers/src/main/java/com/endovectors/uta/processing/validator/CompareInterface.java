@@ -9,4 +9,6 @@ public interface CompareInterface {
 
     public boolean compare(CheckersBoard board);
 
+	public CheckersBoard checkKings(CheckersBoard b);
+
 }

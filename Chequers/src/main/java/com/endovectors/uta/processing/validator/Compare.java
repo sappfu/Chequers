@@ -23,10 +23,7 @@ public class Compare implements CompareInterface{
     }
 
     public boolean compare(CheckersBoard board) {
-    	// added here to check kings
-    	//CheckersBoard temp = checkKings(board);
-        //return compareMoveToList(this.checkBoard(temp), temp);
-    	return compareMoveToList(this.checkBoard(board));
+    	return compareMoveToList(this.checkBoard(board), board);
     }
 
     private Move checkBoard(CheckersBoard currentBoard) {
@@ -44,7 +41,7 @@ public class Compare implements CompareInterface{
         return move;
     }
 
-    private boolean compareMoveToList(Move move){ //, CheckersBoard board){
+    private boolean compareMoveToList(Move move, CheckersBoard board){
         boolean resultTo = false;
         boolean resultFrom = false;
         previousBoard.setCurrentPlayer(2);
@@ -61,12 +58,12 @@ public class Compare implements CompareInterface{
                     resultTo = true;
             }
         }
-        //if (resultTo && resultFrom)
-        	//previousBoard = board;
+        if (resultTo && resultFrom)
+        	previousBoard = board;
         return resultTo&&resultFrom;
     }
     
-    /*public CheckersBoard checkKings(CheckersBoard board)
+    public CheckersBoard checkKings(CheckersBoard board)
     {
     	byte[] currentBoard = board.getPieces();
     	byte[] oldBoard = previousBoard.getPieces();
@@ -76,15 +73,37 @@ public class Compare implements CompareInterface{
     			currentBoard[i]++;
     		if (oldBoard[i] == CheckersBoard.BLACK_KING && currentBoard[i] == CheckersBoard.BLACK)
     			currentBoard[i]++;
-    		if (oldBoard[i] == 0 && currentBoard[i] == CheckersBoard.BLACK)
+    		if (oldBoard[i] == CheckersBoard.WHITE_KING && currentBoard[i] == 0)
+    		{
+    			for (int j = 0; j < 32; j++)
     			{
-    				if (oldBoard[i+4] == CheckersBoard.BLACK_KING && currentBoard[i+4] == 0)
-    					currentBoard[i] = CheckersBoard.BLACK_KING;
-    				else if (oldBoard[i+4] == CheckersBoard.BLACK_KING && currentBoard[i+4] == 0)
-    					currentBoard[i] = CheckersBoard.BLACK_KING;
+    				if (j == i)
+    					continue;
+    				else
+    					if (oldBoard[j] == 0 && currentBoard[j] == CheckersBoard.WHITE)
+    					{
+    						currentBoard[j]++;
+    						break;
+    					}
     			}
+    		}
+    		/*if (oldBoard[i] == CheckersBoard.BLACK_KING && currentBoard[i] == 0)
+    		{
+    			for (int j = 0; j < 32; j++)
+    			{
+    				if (j == i)
+    					continue;
+    				else
+    					if (oldBoard[j] == 0 && currentBoard[j] == CheckersBoard.BLACK)
+    					{
+    						currentBoard[j]++;
+    						break;
+    					}
+    			}
+    		}*/
     	}
     	board.setPieces(currentBoard);
+    	//previousBoard = board;
     	return board;
-    }*/
+    }
 }

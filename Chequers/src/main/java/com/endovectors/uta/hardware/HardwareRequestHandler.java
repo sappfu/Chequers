@@ -25,7 +25,13 @@ public class HardwareRequestHandler extends Observable implements Runnable, Hard
         try {
             usbComm.connect();
             moves = masterController.getMoves();
+            String string = ""; 
             //do hardwaresy stuff
+            for (int i = 0; i < moves.size(); i++)
+            {
+            	String s[] = moves.get(i).toString().split("(,)");
+            	string = string + s[0] + "/" + 0 + "/" + s[1] +  "/" + 1 + "/";
+            }
             setChanged();
             notifyObservers(ButtonStatesEnum.PLAY_STATE); //this is how you notify central controller when move is complete or other data
         }

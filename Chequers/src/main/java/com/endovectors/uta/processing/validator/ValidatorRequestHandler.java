@@ -21,4 +21,9 @@ public class ValidatorRequestHandler implements ValidatorRequestHandlerInterface
         }
         return compare.compare(board);
     }
+    
+    public CheckersBoard getBoard(CheckersBoard b)
+    {
+    	return compare.checkKings(b);
+    }
 }
