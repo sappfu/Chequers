@@ -9,7 +9,9 @@ public class ValidatorRequestHandler implements ValidatorRequestHandlerInterface
 
     private CompareInterface compare;
 
-    public ValidatorRequestHandler(){}
+    public ValidatorRequestHandler(){
+        compare = new Compare();
+    }
 
     public ValidatorRequestHandler(CompareInterface compare){
         this.compare = compare;

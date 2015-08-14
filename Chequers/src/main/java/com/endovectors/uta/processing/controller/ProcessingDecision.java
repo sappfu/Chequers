@@ -35,6 +35,9 @@ public class ProcessingDecision {
 
     public ArrayList<MoveInterface> decide(CheckersBoard board){
         Boolean result = false;
+        for (int i=0;i<32;i++){
+            System.out.println("in decide : " + board.getPieces()[i]);
+        }
         try {
             if (board != null) {
             	setBoard(validatorRequestHandler.getBoard(board));
