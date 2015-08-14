@@ -522,7 +522,7 @@ public class CaptureImage {
 	        // lower threshold values find more edges
 	        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
 	        Mat hierarchy = new Mat(); // holds nested contour information
-	        Imgproc.findContours(canny, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE); // Imgproc.RETR_LIST, TREE
+	        Imgproc.findContours(canny, contours, hierarchy, Imgproc.RETR_LIST, Imgproc.CHAIN_APPROX_SIMPLE); // Imgproc.RETR_LIST, TREE
 			
 	        System.out.println(++test + "\t" + contours.size());
 	        
