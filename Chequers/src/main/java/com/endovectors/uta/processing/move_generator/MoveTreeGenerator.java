@@ -42,6 +42,13 @@ public class MoveTreeGenerator implements MoveTreeGeneratorInterface{
 
   public MoveTreeGenerator(CheckersBoard gameBoard) {
     currentBoard = gameBoard;
+    byte[] pieces = currentBoard.getPieces();
+    for (int i = 0; i < 32; i++)
+    {
+    	if (pieces[i] == CheckersBoard.BLACK && i < 4)
+    		pieces[i] = CheckersBoard.BLACK_KING;
+    }
+    currentBoard.setPieces(pieces);
     color = CheckersBoard.BLACK;
   }
 
