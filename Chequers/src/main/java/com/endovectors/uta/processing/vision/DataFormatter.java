@@ -16,13 +16,13 @@ public class DataFormatter implements DataFormatterInterface{
     }
 
     public CheckersBoard getBoard(){
+        captureImage.capture();
         byte[] boardData = captureImage.getBoard();
         CheckersBoard board = this.convertBoard(boardData);
         return board;
     }
 
     private CheckersBoard convertBoard(byte[] boardData){
-        //TODO: convert BoardData to Board
         CheckersBoard board = new CheckersBoard();
         board.setPieces(boardData);
         return board;
