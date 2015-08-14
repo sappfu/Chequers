@@ -35,8 +35,8 @@ public class CheckersBoard implements Cloneable, Serializable {
   public static final byte BLACK = 4;
   public static final byte BLACK_KING  = 5;
   private static final byte KING = 1;
-  private int whitePieces;
-  private int blackPieces;
+  public int whitePieces;
+  public int blackPieces;
   private int currentPlayer;
 
   public CheckersBoard() {

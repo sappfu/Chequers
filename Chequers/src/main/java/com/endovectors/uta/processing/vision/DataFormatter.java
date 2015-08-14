@@ -24,7 +24,12 @@ public class DataFormatter implements DataFormatterInterface{
         CheckersBoard board = new CheckersBoard();
         board.setPieces(boardData);
         for (int i=0;i<32;i++){
-            System.out.println(board.getPieces()[i]);
+            if (board.getPieces()[i] == 2){
+                board.whitePieces++
+            }
+            if (board.getPieces()[i] == 4){
+                board.blackPieces++
+            }
         }
         return board;
     }
