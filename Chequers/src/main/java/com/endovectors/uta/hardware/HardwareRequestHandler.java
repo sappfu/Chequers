@@ -29,8 +29,12 @@ public class HardwareRequestHandler extends Observable implements Runnable, Hard
             //do hardwaresy stuff
             for (int i = 0; i < moves.size(); i++)
             {
-            	String s[] = moves.get(i).toString().split("(,)");
-            	string = string + s[0] + "/" + 0 + "/" + s[1] +  "/" + 1 + "/";
+                Move move = (Move) moves.get(i);
+            	//String s[] = moves.get(i).toString().split("(,)");
+            	string = string + move.getFrom() + "/" + 0 + "/" + move.getTo() +  "/" + 1 + "/";
+                if (move.getCapturePiece() > -1){
+                    string = string + move.getCapturePiece() + "/" + 0 "/" + "32" + "/" + 1 + "/";
+                }
             }
             usbComm.instruction(string);
             setChanged();
