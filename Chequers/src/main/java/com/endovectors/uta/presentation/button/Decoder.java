@@ -24,6 +24,10 @@ public class Decoder {
 
     final GpioController gpio = GpioFactory.getInstance();
 
+    int b1Counter=0;
+    int b2Counter=0;
+    int b3Counter=0;
+    
     public Decoder (ButtonOne one, ButtonTwo two, ButtonThree three) {
         buttonOne = one;
         buttonTwo = two;
@@ -39,8 +43,18 @@ public class Decoder {
         button1.addListener(new GpioPinListenerDigital() {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
-                System.out.println("Button1 clicked");
+                
+                b1Counter++;
+                if (b1Counter>1)
+                {
+                 b1Counter=0;   
+                }
+                else
+                {
+                 System.out.println("Button1 clicked");
                 buttonOne.doClick();
+                }
+                }
             }
         });
 
