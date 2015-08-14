@@ -47,15 +47,15 @@ public class ProcessingDecision {
                 	//return moveGeneratorRequestHandler.getMove(board);
                 //}
             }
-                else {
+            else {
                     ArrayList<MoveInterface> invalidResult = new ArrayList<MoveInterface>();
                     invalidResult.add(new InvalidMove());
                     return invalidResult;
                 }
 
-            else {
-                throw new RuntimeException("Error getting board from Vision subsystem.");
-            }
+//            else {
+//                throw new RuntimeException("Error getting board from Vision subsystem.");
+//            }
         }
         catch(Exception e){
             throw new RuntimeException(e);
