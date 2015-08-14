@@ -19,11 +19,11 @@ public class HardwareRequestHandler extends Observable implements Runnable, Hard
     public HardwareRequestHandler (MasterController masterController){
         usbComm = new UsbComm();
         this.masterController = masterController;
+        usbComm.connect();
     }
 
     public void run(){
         try {
-            usbComm.connect();
             moves = masterController.getMoves();
             //do hardwaresy stuff
             setChanged();
