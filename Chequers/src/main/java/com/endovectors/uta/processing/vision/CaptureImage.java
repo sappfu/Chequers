@@ -766,7 +766,12 @@ public class CaptureImage {
 		boolean success = camera.read(capturedFrame);
 		if (success)
 		{
-			image.processWithContours(capturedFrame, processedFrame);
+			try {
+				image.processWithContours(capturedFrame, processedFrame);
+			}
+			catch(Exception e){
+				System.out.println(e);
+			}
 		    //image.processFrame(capturedFrame, processedFrame);
 		    // processedFrame should be CV_8UC3
 		    
@@ -788,9 +793,6 @@ public class CaptureImage {
 
 		    Highgui.imwrite("camera.jpg",processedFrame);
 		    System.out.println("Success");
-		for (byte data : board){
-			System.out.println(data + " in capture");
-		}
 		}
 		else
 			System.out.println("Unable to capture image");
