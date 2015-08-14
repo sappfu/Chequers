@@ -70,6 +70,14 @@ public class Compare implements CompareInterface{
     	CheckersBoard checkersBoard = new CheckersBoard();
         for (int i = 0; i < 32; i++)
     	{
+    		if (currentBoard[i] == CheckersBoard.WHITE && i > 27)
+    			currentBoard[i] = CheckersBoard.WHITE_KING;
+    		if (oldBoard[i] == CheckersBoard.WHITE && i > 27)
+    			oldBoard[i] = CheckersBoard.WHITE_KING;
+    		if (currentBoard[i] == CheckersBoard.BLACK && i < 4)
+    			currentBoard[i] = CheckersBoard.BLACK_KING;
+    		if (oldBoard[i] == CheckersBoard.BLACK && i < 4)
+    			oldBoard[i] = CheckersBoard.BLACK_KING;
     		if (oldBoard[i] == CheckersBoard.WHITE_KING && currentBoard[i] == CheckersBoard.WHITE)
     			currentBoard[i]++;
     		if (oldBoard[i] == CheckersBoard.BLACK_KING && currentBoard[i] == CheckersBoard.BLACK)
