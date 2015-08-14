@@ -349,6 +349,7 @@ public class Move implements MoveInterface {
                 }
                 break;
         }
+      return -2;
     }
 }
 
