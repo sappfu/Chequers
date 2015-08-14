@@ -38,7 +38,7 @@ public class UsbComm implements SerialPortEventListener {
 			ports = (CommPortIdentifier) portEnum.nextElement();
 			
 			//check if port is serial, and the port the arduino is connected to
-			if (ports.getPortType() == CommPortIdentifier.PORT_SERIAL && ports.getName().equals("/dev/ttyACM0")) {
+			if (ports.getPortType() == CommPortIdentifier.PORT_SERIAL && ports.getName().equals("/dev/USB0")) {
 				//System.out.println("COM port found");
 				port = ports; // initialize my port
 				break;
