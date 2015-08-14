@@ -76,7 +76,7 @@ public class Move implements MoveInterface {
         }
     };
 
-    private void calculateCapturePiece() {
+    private int calculateCapturePiece() {
         switch (from) {
             case 0:
                 switch (to) {
