@@ -39,6 +39,7 @@ public class Decoder {
         button1.addListener(new GpioPinListenerDigital() {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+                System.out.println("Button1 clicked");
                 buttonOne.doClick();
             }
         });
@@ -46,6 +47,7 @@ public class Decoder {
         button2.addListener(new GpioPinListenerDigital() {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+                System.out.println("Button2 clicked");
                 buttonTwo.doClick();
             }
         });
@@ -53,6 +55,7 @@ public class Decoder {
         button3.addListener(new GpioPinListenerDigital() {
             @Override
             public void handleGpioPinDigitalStateChangeEvent(GpioPinDigitalStateChangeEvent event) {
+                System.out.println("Button3 clicked");
                 buttonThree.doClick();
             }
         });
