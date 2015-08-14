@@ -2,7 +2,6 @@ package com.endovectors.uta.processing.controller;
 
 import com.endovectors.uta.processing.CheckersBoard;
 import com.endovectors.uta.processing.InvalidMove;
-import com.endovectors.uta.processing.Move;
 import com.endovectors.uta.processing.MoveInterface;
 import com.endovectors.uta.processing.move_generator.MoveGeneratorRequestHandler;
 import com.endovectors.uta.processing.move_generator.MoveGeneratorRequestHandlerInterface;
