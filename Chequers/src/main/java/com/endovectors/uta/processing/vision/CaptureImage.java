@@ -771,7 +771,7 @@ public class CaptureImage {
 		    
 		    //image.findCaptured(processedFrame);
 		    
-		    image.determineKings(capturedFrame);
+		    //image.determineKings(capturedFrame);
 		    
 		    int bufferSize = processedFrame.channels() * processedFrame.cols() * processedFrame.rows();
 		    byte[] b = new byte[bufferSize];
@@ -787,6 +787,9 @@ public class CaptureImage {
 		    
 		    Highgui.imwrite("camera.jpg",processedFrame);
 		    System.out.println("Success");
+		for (byte data : board){
+			System.out.println(data + " in capture");
+		}
 		}
 		else
 			System.out.println("Unable to capture image");
