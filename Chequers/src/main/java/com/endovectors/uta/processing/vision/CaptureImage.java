@@ -30,7 +30,7 @@ public class CaptureImage {
 	//private final char COLOR_YELLOW = 'y';
 	private final char COLOR_WHITE = 'w';
 	private final char COLOR_BLACK = 'l';
-	
+
 	
 	private Mat capturedFrame; // raw image
 	private Mat processedFrame; // processed image
@@ -770,7 +770,7 @@ public class CaptureImage {
 		if (success)
 		{
 			try {
-				image.processWithContours(capturedFrame, processedFrame);
+				processWithContours(capturedFrame, processedFrame);
 			}
 			catch(Exception e){
 				System.out.println(e);
