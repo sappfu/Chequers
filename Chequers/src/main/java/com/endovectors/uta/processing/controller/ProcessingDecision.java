@@ -40,18 +40,19 @@ public class ProcessingDecision {
         }
         try {
             if (board != null) {
-            	setBoard(validatorRequestHandler.getBoard(board));
-                result = validatorRequestHandler.validate(b);
-                if (result == true) {
-                    return moveGeneratorRequestHandler.getMove(b);
+            	//setBoard(validatorRequestHandler.getBoard(board));
+                //result = validatorRequestHandler.validate(board);
+                //if (result == true) {
+                    return moveGeneratorRequestHandler.getMove(board);
                 	//return moveGeneratorRequestHandler.getMove(board);
-                }
+                //}
+            }
                 else {
                     ArrayList<MoveInterface> invalidResult = new ArrayList<MoveInterface>();
                     invalidResult.add(new InvalidMove());
                     return invalidResult;
                 }
-            }
+
             else {
                 throw new RuntimeException("Error getting board from Vision subsystem.");
             }
