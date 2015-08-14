@@ -31,6 +31,7 @@ public class UsbComm implements SerialPortEventListener {
 
 	// method initialize
 	void initialize() {
+		System.setProperty("gnu.io.rxtx.SerialPorts","/dev/ttyACM0");
 		CommPortIdentifier ports = null; // to browse through each port identified
 		Enumeration<?> portEnum = CommPortIdentifier.getPortIdentifiers(); // get all available ports
 		
@@ -38,7 +39,7 @@ public class UsbComm implements SerialPortEventListener {
 			ports = (CommPortIdentifier) portEnum.nextElement();
 			
 			//check if port is serial, and the port the arduino is connected to
-			if (ports.getPortType() == CommPortIdentifier.PORT_SERIAL && ports.getName().equals("/dev/ttyAMA0")) {
+			if (ports.getPortType() == CommPortIdentifier.PORT_SERIAL && ports.getName().equals("/dev/ttyACM0")) {
 				//System.out.println("COM port found");
 				port = ports; // initialize my port
 				break;
