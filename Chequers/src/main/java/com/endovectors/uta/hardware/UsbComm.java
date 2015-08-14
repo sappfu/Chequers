@@ -107,7 +107,7 @@ public class UsbComm implements SerialPortEventListener {
 		}	
 	}
 	public void instruction(String str){
-			moveInstr = inputString.nextLine();
+			moveInstr = str;
 			moveInstr = moveInstr + '\n';
 			System.out.print("Sending: ");
 			System.out.printf("%s", moveInstr);
