@@ -30,33 +30,31 @@ public class Selection implements MoveType
 		//VoiceSelector select = new VoiceSelector(type);
 		if (b == null)
 		{
-			this.gui.changeToFace();
-			//select.play();
-			try
-	    	{
-	    	    Thread.sleep(3000); // let face "talk" for 3 seconds
-	    	}
-	    	catch(InterruptedException ex)
-	    	{
-	    	    Thread.currentThread().interrupt();
-	    	}
-			this.gui.changeToBoth();
+			//this.gui.changeToFace();
+			//try
+	    	//{
+	    	    //Thread.sleep(3000); // let face "talk" for 3 seconds
+	    	//}
+	    	//catch(InterruptedException ex)
+	    	//{
+	    	  //  Thread.currentThread().interrupt();
+	    	//}
+			//this.gui.changeToBoth();
 		}
 		else
 		{
-			this.gui.changeToFace();
+			//this.gui.changeToFace();
 			//select.play();
-			try
-	    	{
-	    	    Thread.sleep(3000); // let face "talk" for 3 seconds
-	    	}
-	    	catch(InterruptedException ex)
-	    	{
-	    	    Thread.currentThread().interrupt();
-	    	}
-			//this.gui.changeBoard(b);
+			//try
+	    	//{
+	    	  //  Thread.sleep(3000); // let face "talk" for 3 seconds
+	    	//}
+	    	//catch(InterruptedException ex)
+	    	//{
+	    	  //  Thread.currentThread().interrupt();
+	    	//}
 			this.gui.setBoard(b); // changed to this
-			this.gui.changeToBoth();
+			//this.gui.changeToBoth();
 		}
 	}
 }

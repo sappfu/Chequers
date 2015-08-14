@@ -2,6 +2,8 @@ package com.endovectors.uta.presentation.button.button_two;
 
 import com.endovectors.uta.presentation.button.ButtonStatesEnum;
 
+import java.awt.Color;
+
 import javax.swing.*;
 
 /**
@@ -11,6 +13,8 @@ public class ButtonTwo extends JButton {
 
     public ButtonTwo(String text){
         super(text);
+        setBackground(Color.GREEN);
+        setBorder(null);
     }
 
     public void setState(ButtonStatesEnum state){

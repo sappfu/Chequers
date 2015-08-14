@@ -29,7 +29,7 @@ public class CaptureImage {
 	private final char COLOR_ORANGE = 'o';
 	//private final char COLOR_YELLOW = 'y';
 	private final char COLOR_WHITE = 'w';
-	// need to add black, which is currently the default
+	private final char COLOR_BLACK = 'l';
 	
 	
 	private Mat capturedFrame; // raw image
@@ -37,6 +37,9 @@ public class CaptureImage {
 	private BufferedImage img; // image of board
 	private byte board[]; // holds where pieces are
 	private byte captured[]; // holds where captured pieces are; even is left side, odd is right
+	
+	
+	static int test = 0;
 	
 	
 	/**
@@ -106,7 +109,7 @@ public class CaptureImage {
 					Core.rectangle(in, p1, p2, new Scalar(255, 255, 255), 2);
 					captured[i] = 0;
 					break;
-				default: // this is black
+				case COLOR_BLACK:
 					//Imgproc.rectangle(in, p1, p2, new Scalar(0, 0, 0), 3);
 					Core.rectangle(in, p1, p2, new Scalar(255, 255, 255), 2);
 					captured[i] = 0;
@@ -152,8 +155,9 @@ public class CaptureImage {
 		int vOffset = vsegment + 40;
 		
 		// For angle of camera
-		int dx = 48;
-		hsegment -= 8;
+		int dx = 80;
+		int ddx = 0;
+		hsegment -= 16;
 		
 		int dy = 20;
 		vsegment -= 24;
@@ -163,14 +167,59 @@ public class CaptureImage {
 		{
 			// change offset depending on the row
 			if (parity == 0) // playable squares start on 2nd square from left
+			{
+				if (rowNum >= 5)
+					dx -= 3;
 				hOffset = hsegment * 2 + dx;
+			}
 			else // playable squares start on immediate left
+			{
+				if (rowNum >= 5)
+					dx -= 3;
 				hOffset = hsegment + dx;
+			}
+			
+			if (rowNum == 4)
+				if (count == 6)
+					ddx = 10;
+			if (rowNum == 5)
+			{
+				if (count == 0)
+					ddx = -6;
+				else if (count == 2)
+					ddx = 6;
+				else if (count == 4)
+					ddx = 12;
+				else if (count == 6)
+					ddx = 20;
+			}
+			if (rowNum == 6)
+			{
+				if (count == 0)
+					ddx = 0;
+				else if (count == 2)
+					ddx = 16;
+				else if (count == 4)
+					ddx = 32;
+				else if (count == 6)
+					ddx = 40;
+			}
+			if (rowNum == 7)
+			{
+				if (count == 0)
+					ddx = 0;
+				else if (count == 2)
+					ddx = 24;
+				else if (count == 4)
+					ddx = 40;
+				else
+					ddx = 52;
+			}
 
 			// find where roi should be
 			//System.out.println("" + vOffset);
-			Point p1 = new Point(hOffset + count * hsegment, vOffset + rowNum * vsegment - dy); // top left point of rectangle (x,y)
-			Point p2 = new Point(hOffset + (count + 1) * hsegment, vOffset + (rowNum + 1) * vsegment - dy); // bottom right point of rectangle (x,y)
+			Point p1 = new Point(hOffset + count * hsegment + ddx, vOffset + rowNum * vsegment - dy); // top left point of rectangle (x,y)
+			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx, vOffset + (rowNum + 1) * vsegment - dy); // bottom right point of rectangle (x,y)
 			
 			// create rectangle that is board square
 			Rect bound = new Rect(p1, p2);
@@ -215,7 +264,7 @@ public class CaptureImage {
 					Core.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
 					board[i] = CheckersBoard.EMPTY;
 					break;
-				default: // this is black
+				case COLOR_BLACK: // this is black
 					//Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2);
 					Core.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2); // maybe add 8, 0 as line type and fractional bits
 					board[i] = CheckersBoard.EMPTY;
@@ -228,8 +277,8 @@ public class CaptureImage {
 				parity = ++parity % 2; // change odd or even
 				count = 0;
 				rowNum++;
-				hsegment += 1;
-				dx -= 6;
+				hsegment += 2;
+				dx -= 10;
 				dy += 10;
 				vsegment += 3;
 			}
@@ -251,7 +300,7 @@ public class CaptureImage {
         Imgproc.cvtColor(dst, dst, Imgproc.COLOR_BGR2GRAY); // change to single color
         
         Mat canny = new Mat();
-        Imgproc.Canny(dst, canny, 10, 50); // make image a canny image that is only edges; 2,4
+        Imgproc.Canny(dst, canny, 100, 200); // make image a canny image that is only edges; 2,4
         // lower threshold values find more edges
         List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
         Mat hierarchy = new Mat(); // holds nested contour information
@@ -353,6 +402,169 @@ public class CaptureImage {
 		}*/
 	}
 	
+	public void processWithContours(Mat in, Mat out)
+	{
+		int playSquares = 32; // number of playable game board squares
+		
+		// keep track of starting row square
+		int parity = 0; // 0 is even, 1 is odd, tied to row number
+		int count = 0; // row square
+		int rowNum = 0; // row number, starting at 0
+		
+		int vsegment = in.rows() / 8; // only accounts 8 playable
+		int hsegment = in.cols() / 10; // 8 playable, 2 capture
+		int hOffset = hsegment * 2; // offset for playable board
+		int vOffset = vsegment + 40;
+		
+		// For angle of camera
+		int dx = 80;
+		int ddx = 0;
+		hsegment -= 16;
+		
+		int dy = 20;
+		vsegment -= 24;
+		int ddy = 0;
+		
+		// Go through all playable squares
+		for (int i = 0; i < playSquares; i++)
+		{
+			// change offset depending on the row
+			if (parity == 0) // playable squares start on 2nd square from left
+			{
+				if (rowNum >= 5)
+					dx -= 3;
+				hOffset = hsegment * 2 + dx;
+			}
+			else // playable squares start on immediate left
+			{
+				if (rowNum >= 5)
+					dx -= 3;
+				hOffset = hsegment + dx;
+			}
+			
+			if (rowNum == 0)
+				ddy = 5;
+			if (rowNum == 4)
+				if (count == 6)
+					ddx = 10;
+			if (rowNum == 5)
+			{
+				if (count == 0)
+					ddx = -6;
+				else if (count == 2)
+					ddx = 6;
+				else if (count == 4)
+					ddx = 12;
+				else if (count == 6)
+					ddx = 20;
+			}
+			if (rowNum == 6)
+			{
+				if (count == 0)
+					ddx = 0;
+				else if (count == 2)
+					ddx = 16;
+				else if (count == 4)
+					ddx = 32;
+				else if (count == 6)
+					ddx = 40;
+			}
+			if (rowNum == 7)
+			{
+				if (count == 0)
+					ddx = 6;
+				else if (count == 2)
+					ddx = 24;
+				else if (count == 4)
+					ddx = 40;
+				else
+					ddx = 52;
+			}
+
+			// find where roi should be
+			//System.out.println("" + vOffset);
+			Point p1 = new Point(hOffset + count * hsegment + ddx + 5, vOffset + rowNum * vsegment - dy -5 - ddy); // top left point of rectangle (x,y)
+			Point p2 = new Point(hOffset + (count + 1) * hsegment + ddx - 5, vOffset + (rowNum + 1) * vsegment - dy - 5 - ddy); // bottom right point of rectangle (x,y)
+			
+			// create rectangle that is board square
+			Rect bound = new Rect(p1, p2);
+			
+			Mat roi;
+			char color;
+			if (i == 0)
+			{
+				// frame only includes rectangle
+				roi = new Mat(in, bound);
+				
+				// get the color
+				color = identifyColor(roi);
+				
+				// copy input image to output image
+				in.copyTo(out);
+			}
+			else
+			{
+				// frame only includes rectangle
+				roi = new Mat(out, bound);
+				
+				// get the color
+				color = identifyColor(roi);
+			}
+			
+			
+			Imgproc.cvtColor(roi, roi, Imgproc.COLOR_BGR2GRAY); // change to single color
+	        
+	        Mat canny = new Mat();
+	        Imgproc.Canny(roi, canny, 15, 60); // make image a canny image that is only edges; 2,4
+	        // lower threshold values find more edges
+	        List<MatOfPoint> contours = new ArrayList<MatOfPoint>();
+	        Mat hierarchy = new Mat(); // holds nested contour information
+	        Imgproc.findContours(canny, contours, hierarchy, Imgproc.RETR_EXTERNAL, Imgproc.CHAIN_APPROX_SIMPLE); // Imgproc.RETR_LIST, TREE
+			
+	        System.out.println(++test + "\t" + contours.size());
+	        
+	        if (contours.size() > 3) // or error value for color is below 1
+	        {
+	        	switch(color)
+				{
+					case COLOR_BLUE:
+						//Imgproc.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
+						Core.rectangle(out, p1, p2, new Scalar(255, 0, 0), 2);
+						board[i] = CheckersBoard.BLACK; // end user's piece
+						break;
+					case COLOR_ORANGE:
+						//Imgproc.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
+						Core.rectangle(out, p1, p2, new Scalar(0, 128, 255), 2);
+						board[i] = CheckersBoard.WHITE; // system's piece
+						break;
+					case COLOR_WHITE:
+						//Imgproc.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
+						Core.rectangle(out, p1, p2, new Scalar(255, 255, 255), 2);
+						board[i] = CheckersBoard.EMPTY;
+						break;
+					case COLOR_BLACK: // this is black
+						//Imgproc.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2);
+						Core.rectangle(out, p1, p2, new Scalar(0, 0, 0), 2); // maybe add 8, 0 as line type and fractional bits
+						board[i] = CheckersBoard.EMPTY;
+						break;
+				}
+	        }
+			
+			count += 2;
+			if (count == 8)
+			{
+				parity = ++parity % 2; // change odd or even
+				count = 0;
+				rowNum++;
+				hsegment += 2;
+				dx -= 10;
+				dy += 10;
+				vsegment += 3;
+				ddy = 0;
+			}
+		}
+	}
+	
 	/**
 	 * Identifies the color in the frame
 	 * @param in the Mat image in the region of interest
@@ -436,6 +648,18 @@ public class CaptureImage {
 		// ... here
 		
 		
+		//original values
+		/*
+		// define the reference color values
+		//double RED[] = {0.4, 0.5, 1.8};
+		//double GREEN[] = {1.0, 1.2, 1.0};
+		double BLUE[] = {1.75, 1.0, 0.5};
+		//double YELLOW[] = {0.82, 1.7, 1.7};
+		double ORANGE[] = {0.2, 1.0, 2.0};
+		double WHITE[] = {2.0, 1.7, 1.7};
+		//double BLACK[] = {0.0, 0.3, 0.3};
+		*/
+		
 		
 		// define the reference color values
 		//double RED[] = {0.4, 0.5, 1.8};
@@ -448,40 +672,26 @@ public class CaptureImage {
 		
 		// compute the square error relative to the reference color values
 		//double minError = 3.0;
-		double minError = 3.0;
+		double minError = 2.0;
 		double errorSqr;
 		char bestFit = 'x';
-		/*
-		// check RED fitness
-		errorSqr = normSqr(RED[0], RED[1], RED[2], bavg, gavg, ravg);
-		if(errorSqr < minError)
-		{
-			minError = errorSqr;
-			bestFit = COLOR_RED;
-		}
-		// check GREEN fitness
-		errorSqr = normSqr(GREEN[0], GREEN[1], GREEN[2], bavg, gavg, ravg);
-		if(errorSqr < minError)
-		{
-			minError = errorSqr;
-			bestFit = COLOR_GREEN;
-		}*/
+		
+		
+		//test++;
+		//System.out.print("\n\n" + test + "\n\n");
+		
+		
 		// check BLUE fitness
 		errorSqr = normSqr(BLUE[0], BLUE[1], BLUE[2], bavg, gavg, ravg);
+		System.out.println("Blue: " + errorSqr);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
 			bestFit = COLOR_BLUE;
-		}/*
-		// check YELLOW fitness
-		errorSqr = normSqr(YELLOW[0], YELLOW[1], YELLOW[2], bavg, gavg, ravg);
-		if(errorSqr < minError)
-		{
-			minError = errorSqr;
-			bestFit = COLOR_YELLOW;
-		}*/
+		}
 		// check ORANGE fitness
 		errorSqr = normSqr(ORANGE[0], ORANGE[1], ORANGE[2], bavg, gavg, ravg);
+		System.out.println("Orange: " + errorSqr);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
@@ -489,11 +699,20 @@ public class CaptureImage {
 		}
 		// check WHITE fitness
 		errorSqr = normSqr(WHITE[0], WHITE[1], WHITE[2], bavg, gavg, ravg);
+		System.out.println("White: " + errorSqr);
 		if(errorSqr < minError)
 		{
 			minError = errorSqr;
 			bestFit = COLOR_WHITE;
 		}
+		// check BLACK fitness
+		/*errorSqr = normSqr(BLACK[0], BLACK[1], BLACK[2], bavg, gavg, ravg);
+		System.out.println("Black: " + errorSqr);
+		if(errorSqr < minError)
+		{
+			minError = errorSqr;
+			bestFit = COLOR_BLACK;
+		}*/
 		
 		// return the best fit color label
 		return bestFit;
@@ -546,7 +765,8 @@ public class CaptureImage {
 		boolean success = camera.read(capturedFrame);
 		if (success)
 		{
-		    image.processFrame(capturedFrame, processedFrame);
+			image.processWithContours(capturedFrame, processedFrame);
+		    //image.processFrame(capturedFrame, processedFrame);
 		    // processedFrame should be CV_8UC3
 		    
 		    //image.findCaptured(processedFrame);

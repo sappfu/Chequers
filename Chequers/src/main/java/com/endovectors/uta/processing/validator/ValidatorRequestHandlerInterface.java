@@ -8,4 +8,6 @@ import com.endovectors.uta.processing.CheckersBoard;
 public interface ValidatorRequestHandlerInterface {
 
     boolean validate(CheckersBoard board);
+
+	CheckersBoard getBoard(CheckersBoard board);
 }
