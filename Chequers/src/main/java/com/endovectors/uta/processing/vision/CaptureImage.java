@@ -748,7 +748,7 @@ public class CaptureImage {
 	    
 	    camera.set(12, -20); // change contrast, might not be necessary
 	    
-	    CaptureImage image = new CaptureImage();
+	    //CaptureImage image = new CaptureImage();
 	    
 	    
 	    
