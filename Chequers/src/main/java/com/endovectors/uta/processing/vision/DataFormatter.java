@@ -24,6 +24,9 @@ public class DataFormatter implements DataFormatterInterface{
 
     private CheckersBoard convertBoard(byte[] boardData){
         CheckersBoard board = new CheckersBoard();
+        for (byte board : boardData){
+            System.out.println("In convertBoard: " + board);
+        }
         board.setPieces(boardData);
         return board;
     }
