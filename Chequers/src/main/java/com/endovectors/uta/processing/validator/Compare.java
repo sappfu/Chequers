@@ -67,7 +67,8 @@ public class Compare implements CompareInterface{
     {
     	byte[] currentBoard = board.getPieces();
     	byte[] oldBoard = previousBoard.getPieces();
-    	for (int i = 0; i < 32; i++)
+    	CheckersBoard checkersBoard = new CheckersBoard();
+        for (int i = 0; i < 32; i++)
     	{
     		if (oldBoard[i] == CheckersBoard.WHITE_KING && currentBoard[i] == CheckersBoard.WHITE)
     			currentBoard[i]++;
@@ -102,8 +103,8 @@ public class Compare implements CompareInterface{
     			}
     		}*/
     	}
-    	board.setPieces(currentBoard);
+    	checkersBoard.setPieces(currentBoard);
     	//previousBoard = board;
-    	return board;
+    	return checkersBoard;
     }
 }
