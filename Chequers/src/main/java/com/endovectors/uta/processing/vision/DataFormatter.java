@@ -18,7 +18,7 @@ public class DataFormatter implements DataFormatterInterface{
     public CheckersBoard getBoard(){
         captureImage.capture();
         byte[] boardData = captureImage.getBoard();
-        for (byte board : boardData){
+        for (int i=0;i<boardData.length;i++){
             System.out.println("In convertBoard: " + board);
         }
         CheckersBoard board = this.convertBoard(boardData);
@@ -27,9 +27,6 @@ public class DataFormatter implements DataFormatterInterface{
 
     private CheckersBoard convertBoard(byte[] boardData){
         CheckersBoard board = new CheckersBoard();
-        for (byte board : boardData){
-            System.out.println("In convertBoard: " + board);
-        }
         board.setPieces(boardData);
         return board;
     }
