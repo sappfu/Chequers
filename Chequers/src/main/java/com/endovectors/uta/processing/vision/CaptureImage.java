@@ -548,9 +548,9 @@ public class CaptureImage {
 						board[i] = CheckersBoard.EMPTY;
 						break;
 				}
-				System.out.println("in color switch " + board[i]);
 	        }
-			
+
+			System.out.println("in color switch " + board[i]);
 			count += 2;
 			if (count == 8)
 			{
@@ -785,7 +785,7 @@ public class CaptureImage {
 		    //img.getRaster().setDataElements(0, 0, width, height, b);
 		    byte[] a = new byte[bufferSize];
 		    System.arraycopy(b, 0, a, 0, bufferSize);
-		    
+
 		    Highgui.imwrite("camera.jpg",processedFrame);
 		    System.out.println("Success");
 		for (byte data : board){
