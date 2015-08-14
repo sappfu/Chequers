@@ -54,6 +54,9 @@ public class CaptureImage {
 		capturedFrame = new Mat();
 		processedFrame = new Mat();
 		board = new byte[32];
+		for (int i=0;i<board.length;i++){
+			board[i] = 0;
+		}
 		captured = new byte[12];
 	}
 	
