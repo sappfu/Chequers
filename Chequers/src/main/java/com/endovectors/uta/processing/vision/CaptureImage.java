@@ -548,6 +548,7 @@ public class CaptureImage {
 						board[i] = CheckersBoard.EMPTY;
 						break;
 				}
+				System.out.println("in color switch " + board[i]);
 	        }
 			
 			count += 2;
