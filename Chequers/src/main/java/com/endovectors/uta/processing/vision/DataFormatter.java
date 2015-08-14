@@ -9,14 +9,14 @@ import com.endovectors.uta.processing.vision.DataConverter;
  */
 public class DataFormatter implements DataFormatterInterface{
 
-    DataConverterInterface dataConverter;
+    CaptureImage captureImage;
 
     public DataFormatter(){
-        dataConverter = new DataConverter();
+        captureImage = new CaptureImage();
     }
 
     public CheckersBoard getBoard(){
-        byte[] boardData = dataConverter.getBoard();
+        byte[] boardData = captureImage.getBoard();
         CheckersBoard board = this.convertBoard(boardData);
         return board;
     }
