@@ -17,8 +17,8 @@ public class Main {
     private static void setup(){
         System.out.println(System.getProperty("java.library.path"));
         System.setProperty("java.library.path", System.getProperty("user.dir"));
-        masterController = new MasterController();
-        //CaptureImage image = new CaptureImage();
-        //image.capture();
+        //masterController = new MasterController();
+        CaptureImage image = new CaptureImage();
+        image.capture();
     }
 }
