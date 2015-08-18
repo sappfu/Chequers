@@ -6,21 +6,55 @@
     <style>
         body {
             background-color: darkgray;
+            font-family: cursive;
+        }
+
+        .title {
+            background-color: lightgrey;
+            width: 99%;
+            height: 150px;
+            margin: 10px;
+            text-align: center;
+            font-size: 100px;
+            border-radius: 10px;
+        }
+
+        .team {
+            width: 60%;
+            float: left;
+            background-color: lightgrey;
+            text-align: center;
+            clear: left;
+            height: 150px;
+            border-radius: 5px;
+            font-size: 50px;
+        }
+
+        .names {
+            width: 30%;
+            float: right;
+            background-color: lightgrey;
+            text-align: center;
+            clear: right;
+            height: 150px;
+            border-radius: 5px;
         }
 
         .intro {
             background-color: lightgrey;
             width: 98%;
-            height: 100px;
+            height: 120px;
             border: 10px;
             border-top: 5px;
             margin: 10px;
+            clear: both;
         }
 
         .leftBox {
             background-color: lightgrey;
             float: left;
-            width: 40%;
+            clear: left;
+            width: 60%;
             border: 3px;
             border-radius: 5px;
             margin: 10px;
@@ -29,7 +63,8 @@
         .pictureRightBox {
             background-color: lightgrey;
             float: right;
-            width: 40%;
+            clear: right;
+            width: 35%;
             border: 3px;
             border-radius: 5px;
             margin: 10px;
@@ -37,9 +72,8 @@
 
         .pictureLeftBox {
             background-color: lightgrey;
-            float: right;
-            width: 25%;
-            height: 200px;
+            float: left;
+            width: 35%;
             border: 3px;
             border-radius: 5px;
             margin: 10px;
@@ -49,7 +83,7 @@
             background-color: lightgrey;
             float: right;
             clear: both;
-            width: 30%;
+            width: 60%;
             border: 3px;
             border-radius: 5px;
             margin: 10px;
@@ -67,17 +101,36 @@
     </style>
 </head>
 <body>
-
-<div id="intro" class="intro">
-    Chequers will be used by the University of Texas at Arlington’s College of Engineering for recruiting and outreach
-    purposes.The purpose of the project is to showcase the checkers-playing robot to inspire potential future students
-    and provide a source of public relations for the University of Texas at Arlington. As the Chequers system will be
-    used for demonstration purposes for the university, it should be interesting enough to encourage people to continue
-    playing.
+<h1 class="title">
+    The Chequers System
+    <h2 class="team">
+        By Team Endovectors
+    </h2>
+    <h3 class="names">
+        Saul Estrada<br>
+        Patrick Break<br>
+        Harold Wheaton<br>
+        Birendra Malla<br>
+        John Sapp<br>
+    </h3>
+</h1>
+<div>
+    <div id="intro" class="intro">
+        <h2>Introduction</h2>
+        Chequers will be used by the University of Texas at Arlington’s College of Engineering for recruiting and
+        outreach
+        purposes.The purpose of the project is to showcase the checkers-playing robot to inspire potential future
+        students
+        and provide a source of public relations for the University of Texas at Arlington. As the Chequers system will
+        be
+        used for demonstration purposes for the university, it should be interesting enough to encourage people to
+        continue
+        playing.
+    </div>
 </div>
-
 <div>
     <div class="leftBox">
+        <h2> Description </h2>
         The robot system, which has been named Chequers, will use a vision subsystem to determine the state of the board
         and
         an Artificial Intelligent (AI) subsystem to determine which moves the robot will make during the game. When
@@ -106,13 +159,27 @@
 </div>
 <div>
     <div class="rightBox">
+        <h2>Architecture</h2>
         This section gives a general description of each of the five high level layers of the system, and each subsystem
         within those layers. These layers include the Presentation Layer, Central Controller Layer, Processing Layer,
         Persistence Layer, and Hardware Layer. Figure 1.0 shows the architecture of the Chequers system, which includes
         each layer, subsystem, and data flows.
     </div>
     <div>
-        <img id="general" src="general.png" class="pictureLeftBox">
+        <img id="general" src="Chequers.png" class="pictureLeftBox">
+    </div>
+</div>
+<div>
+    <div class="leftBox">
+        <h2> Hardware </h2>
+        The Raspberry Pi is the center of the system and is responsible for processing data acquired and sending
+        coordinates to the Iduino. I/O devices and other hardware devices will be connected to the Raspberry Pi,
+        allowing it to interact with the physical world.
+    </div>
+    <div>
+        <div>
+            <img id="raspberry" src="Rasp.png" class="pictureRightBox">
+        </div>
     </div>
 </div>
 <div class="videoBox">
