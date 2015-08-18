@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>The Chequers System</title>
+    <style>
+        body {
+            background-color: darkgray;
+        }
+
+        .intro {
+            background-color: lightgrey;
+            width: 98%;
+            height: 100px;
+            border: 10px;
+            border-top: 5px;
+            margin: 10px;
+        }
+
+        .leftBox {
+            background-color: lightgrey;
+            float: left;
+            width: 40%;
+            border: 3px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .pictureRightBox {
+            background-color: lightgrey;
+            float: right;
+            width: 40%;
+            border: 3px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .pictureLeftBox {
+            background-color: lightgrey;
+            float: right;
+            width: 25%;
+            height: 200px;
+            border: 3px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .rightBox {
+            background-color: lightgrey;
+            float: right;
+            clear: both;
+            width: 30%;
+            border: 3px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .videoBox {
+            background-color: lightgrey;
+            clear: both;
+            width: 98%;
+            height: 200px;
+            border: 3px;
+            border-radius: 5px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div id="intro" class="intro">
+    Chequers will be used by the University of Texas at Arlington’s College of Engineering for recruiting and outreach
+    purposes.The purpose of the project is to showcase the checkers-playing robot to inspire potential future students
+    and provide a source of public relations for the University of Texas at Arlington. As the Chequers system will be
+    used for demonstration purposes for the university, it should be interesting enough to encourage people to continue
+    playing.
+</div>
+
+<div>
+    <div class="leftBox">
+        The robot system, which has been named Chequers, will use a vision subsystem to determine the state of the board
+        and
+        an Artificial Intelligent (AI) subsystem to determine which moves the robot will make during the game. When
+        making a
+        move, the robot arm will be able to move a piece to the correct square, jump over the human player’s pieces,
+        remove
+        captured pieces from the board, and crown the human player’s piece, as per the rules of the game. The human
+        player
+        will be able to manually move their pieces, after which, the vision subsystem will check the state of the board,
+        verifying that the move was legal, and allow the AI to determine the next move. The whole system should not be
+        more
+        than 2’l x 2’w x 1.5’h, and will have a budget of $800.
+        As the Chequers system will be used for demonstration purposes for the university, it will be required to have a
+        polished look. The user interface may include voice recognition and speech. Chequers will have multiple levels
+        of AI
+        difficulty to make it fun for players of different skill levels. All features of the project are defined in the
+        System Requirements Specification.
+        The system will need to be reasonably easy to transport by car or van, and have a short setup time. Due to the
+        nature of the project, the system will need to be robust enough to withstand multiple breakdowns and setups.
+    </div>
+    <div>
+        <div>
+            <img id="picture" src="general.png" class="pictureRightBox">
+        </div>
+    </div>
+</div>
+<div>
+    <div class="rightBox">
+        This section gives a general description of each of the five high level layers of the system, and each subsystem
+        within those layers. These layers include the Presentation Layer, Central Controller Layer, Processing Layer,
+        Persistence Layer, and Hardware Layer. Figure 1.0 shows the architecture of the Chequers system, which includes
+        each layer, subsystem, and data flows.
+    </div>
+    <div>
+        <img id="general" src="general.png" class="pictureLeftBox">
+    </div>
+</div>
+<div class="videoBox">
+
+</div>
+
+</body>
+</html>
