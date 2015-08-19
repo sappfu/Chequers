@@ -5,186 +5,249 @@
     <title>The Chequers System</title>
     <style>
         body {
-            background-color: darkgray;
+            background-image: url("site-bg.jpg");
             font-family: cursive;
+        }
+
+        .innerDiv {
+            width: 75% margin : 5 px auto 5 px auto;
         }
 
         .title {
             background-color: lightgrey;
-            width: 99%;
-            height: 150px;
-            margin: 10px;
+            width: 80%;
+            height: 75px;
             text-align: center;
-            font-size: 100px;
-            border-radius: 10px;
-        }
-
-        .team {
-            width: 60%;
-            float: left;
-            background-color: lightgrey;
-            text-align: center;
-            clear: left;
-            height: 150px;
-            border-radius: 5px;
             font-size: 50px;
+            border-radius: 5px;
+            margin: 5px auto 5px auto;
         }
 
-        .names {
-            width: 30%;
-            float: right;
+        .subtitle {
             background-color: lightgrey;
-            text-align: center;
-            clear: right;
-            height: 150px;
+            width: 75%;
+            font-size: 30px;
             border-radius: 5px;
+            clear: both;
+            text-align: center;
+            margin: 5px auto 5px auto;
+        }
+
+        .minititle {
+            background-color: lightgrey;
+            float: left;
+            clear: left;
+            width: 35%;
+            border: 3px;
+            border-radius: 5px;
+            font-size: 15px;
+            margin: 25px auto 5px 200px;
+            text-align: center;
         }
 
         .intro {
             background-color: lightgrey;
-            width: 98%;
-            height: 120px;
+            width: 60%;
             border: 10px;
-            border-top: 5px;
-            margin: 10px;
             clear: both;
+            margin: 5px auto 5px auto;
+
         }
 
         .leftBox {
             background-color: lightgrey;
             float: left;
             clear: left;
-            width: 60%;
+            width: 35%;
             border: 3px;
             border-radius: 5px;
-            margin: 10px;
+            font-size: 15px;
+            margin: 5px auto 5px 200px;
         }
 
-        .pictureRightBox {
+        .rightBox {
             background-color: lightgrey;
             float: right;
             clear: right;
             width: 35%;
             border: 3px;
             border-radius: 5px;
-            margin: 10px;
+            font-size: 15px;
+            margin: 5px 200px 5px auto;
+        }
+
+        .pictureBox {
+            background-color: lightgrey;
+            clear: both;
+            width: 65%;
+            border: 3px;
+            border-radius: 5px;
+            margin: 5px auto 5px 265px;
+        }
+
+        .pictureRightBox {
+            background-color: lightgrey;
+            float: right;
+            clear: right;
+            width: 20%;
+            border: 3px;
+            border-radius: 5px;
+            margin: 10px 350px 5px auto;
         }
 
         .pictureLeftBox {
             background-color: lightgrey;
+            clear: left;
             float: left;
-            width: 35%;
+            width: 20%;
             border: 3px;
             border-radius: 5px;
-            margin: 10px;
-        }
-
-        .rightBox {
-            background-color: lightgrey;
-            float: right;
-            clear: both;
-            width: 60%;
-            border: 3px;
-            border-radius: 5px;
-            margin: 10px;
+            margin: 10px auto 5px 350px;
         }
 
         .videoBox {
             background-color: lightgrey;
-            clear: both;
-            width: 98%;
-            height: 200px;
+            float: right;
+            clear: right;
+            width: 35%;
+            height: 300px;
             border: 3px;
             border-radius: 5px;
-            margin: 10px;
+            margin: 5px 200px 5px auto;
         }
     </style>
 </head>
 <body>
 <h1 class="title">
     The Chequers System
-    <h2 class="team">
-        By Team Endovectors
-    </h2>
-    <h3 class="names">
-        Saul Estrada<br>
-        Patrick Break<br>
-        Harold Wheaton<br>
-        Birendra Malla<br>
-        John Sapp<br>
-    </h3>
 </h1>
-<div>
+
+<div class="innerDiv">
+    <h2 class="subtitle">Introduction</h2>
+
     <div id="intro" class="intro">
-        <h2>Introduction</h2>
-        Chequers will be used by the University of Texas at Arlington’s College of Engineering for recruiting and
-        outreach
-        purposes.The purpose of the project is to showcase the checkers-playing robot to inspire potential future
-        students
-        and provide a source of public relations for the University of Texas at Arlington. As the Chequers system will
-        be
-        used for demonstration purposes for the university, it should be interesting enough to encourage people to
-        continue
-        playing.
+        The Chequers System is a project created by Team Endovectors as a Senior Design project at the University of
+        Texas at Arlington. The system is a Checkers playing robot designed to interact with the player during the game.
+        The purpose of the project is to showcase the checkers-playing robot to inspire potential future
+        students and provide a source of public relations for the University of Texas at Arlington.
     </div>
 </div>
-<div>
+<div class="innerDiv">
+    <h2 class="subtitle"> Description </h2>
+
     <div class="leftBox">
-        <h2> Description </h2>
-        The robot system, which has been named Chequers, will use a vision subsystem to determine the state of the board
-        and
-        an Artificial Intelligent (AI) subsystem to determine which moves the robot will make during the game. When
-        making a
-        move, the robot arm will be able to move a piece to the correct square, jump over the human player’s pieces,
-        remove
-        captured pieces from the board, and crown the human player’s piece, as per the rules of the game. The human
-        player
-        will be able to manually move their pieces, after which, the vision subsystem will check the state of the board,
-        verifying that the move was legal, and allow the AI to determine the next move. The whole system should not be
-        more
-        than 2’l x 2’w x 1.5’h, and will have a budget of $800.
-        As the Chequers system will be used for demonstration purposes for the university, it will be required to have a
-        polished look. The user interface may include voice recognition and speech. Chequers will have multiple levels
-        of AI
-        difficulty to make it fun for players of different skill levels. All features of the project are defined in the
-        System Requirements Specification.
-        The system will need to be reasonably easy to transport by car or van, and have a short setup time. Due to the
-        nature of the project, the system will need to be robust enough to withstand multiple breakdowns and setups.
+        The system uses a vision subsystem to determine the state of the board
+        and an Artificial Intelligent (AI) subsystem to determine which moves to make during the game. When
+        making a move, the robot arm is be able to move a piece to the correct square, jump over the human player’s
+        pieces,
+        remove captured pieces from the board, and crown the human player’s piece, as per the rules of the game. The
+        human
+        player is able to manually move their pieces, after which, the vision subsystem checks the state of the board,
+        verifying that the move was legal, and allowing the AI to determine the next move. The whole system was designed
+        to fit inside a 2' cube and was created with a budget of $800.
+        As the Chequers system is being used for demonstration purposes for the university, it was required to have a
+        polished look. The user interface includes voice recognition and speech.
     </div>
     <div>
         <div>
-            <img id="picture" src="general.png" class="pictureRightBox">
+            <img id="video" src="video.mpeg" class="videoBox">
         </div>
     </div>
 </div>
-<div>
-    <div class="rightBox">
-        <h2>Architecture</h2>
-        This section gives a general description of each of the five high level layers of the system, and each subsystem
-        within those layers. These layers include the Presentation Layer, Central Controller Layer, Processing Layer,
-        Persistence Layer, and Hardware Layer. Figure 1.0 shows the architecture of the Chequers system, which includes
-        each layer, subsystem, and data flows.
+<div class="innerDiv">
+    <h2 class="subtitle">Architecture</h2>
+
+    <div class="intro">
+        The Chequers System uses a five tier architecture approach. A detailed design follows, and below is a general
+        description of each of the five high level layers of the system.These layers include the Presentation Layer,
+        Central Controller Layer, Processing Layer,
+        Persistence Layer, and Hardware Layer.
     </div>
     <div>
-        <img id="general" src="Chequers.png" class="pictureLeftBox">
+        <img id="general" src="Chequers.png" class="pictureBox">
+    </div>
+
+    <div class="rightBox minititle">Presentation Layer</div>
+    <div class="rightBox">
+        The purpose of the Presentation Layer is to accept input from the end user and the Central Controller Layer and
+        provide entertainment to the end user through visual and auditory means. This layer will be the main source of
+        input from the end user, and it will provide up-to-date visual aid of the state of the game. Communication will
+        pass from this layer to the Central Controller Layer when the end user enters input into the system.
+    </div>
+    <div class="leftBox minititle">Central Controller Layer</div>
+    <div class="leftBox">
+        The purpose of this layer is to accept messages from all other high level layers, relaying the messages to the
+        correct layer, and keeping track of the state of the game. This layer acts as an intermediary between the layers
+        of the architecture. The two subsystems of this layer, the Master Controller, and State will be briefly
+        described in the following subsections.
+    </div>
+    <div class="rightBox minititle">Processing Layer</div>
+    <div class="rightBox">
+        The Processing Layer allows the Chequers system to perform all processing actions. It determines whether or not
+        a valid move has been made after getting the state of the board from the camera, and then generate a move for
+        the robotic arm. The vision is handled within the layer by use of the Open Source library OpenCV.
+    </div>
+    <div class="leftBox minititle">Persistence Layer</div>
+    <div class="leftBox">
+        The Persistence layer will provide a means to persistently store and retrieve the game, board, and robot states
+        necessary to resume a game upon a software crash. It will be responsible for converting this data to the
+        appropriate format for storage, and for retrieval from storage. The two subsystems of this layer, the
+        Persistence Controller and File Storage, will be briefly described in the following subsections.
+    </div>
+    <div class="rightBox minititle">Hardware Layer</div>
+    <div class="rightBox">
+        The purpose of the Hardware Layer is to accept input from the master controller, and convert the instructions
+        received into instructions for the movement of the robotic arm. The Hardware Layer is composed of two main
+        subsystems: the Hardware Controller subsystem and the Motor Controller subsystem.
     </div>
 </div>
-<div>
+<div class="innerDiv">
+    <h2 class="subtitle"> Hardware </h2>
+
+    <div class="leftBox minititle">Raspberry Pi 2 B</div>
     <div class="leftBox">
-        <h2> Hardware </h2>
         The Raspberry Pi is the center of the system and is responsible for processing data acquired and sending
         coordinates to the Iduino. I/O devices and other hardware devices will be connected to the Raspberry Pi,
         allowing it to interact with the physical world.
     </div>
     <div>
         <div>
-            <img id="raspberry" src="Rasp.png" class="pictureRightBox">
+            <img id="raspberry" src="Rasp.png" class="pictureLeftBox">
+        </div>
+    </div>
+    <div class="rightBox minititle">Iduino Mega</div>
+    <div class="rightBox">
+        The Iduino interfaces with the Raspberry Pi via USB cable. This interface from the Iduino to the Raspberry
+        Pi provides data about requested arm movement, such as the state of the current arm movement. The Iduino
+        also interfaces with the RAMPS for the movement of the robotic arm.
+    </div>
+    <div>
+        <div>
+            <img id="iduino" src="iduino.jpg" class="pictureRightBox">
+        </div>
+    </div>
+
+    <div class="leftBox minititle">RepRap Arduino Mega Pololu Shield</div>
+    <div class="leftBox">
+        The RAMPS interfaces directly with the stepper motor drivers and the Iduino. This interface allows the
+        Iduino to communicate with the stepper motor drivers. It interacts with the Iduino using the I/O pins.
+    </div>
+    <div>
+        <div>
+            <img id="ramps" src="ramps.jpg" class="pictureLeftBox">
+        </div>
+    </div>
+    <div class="rightBox minititle">DRV8825 Stepper Motor</div>
+    <div class="rightBox">
+        The DRV8825 Stepper Motor drivers will interface with the stepper motors, giving them information, such as
+        direction, and number of step size they should move.
+    </div>
+    <div>
+        <div>
+            <img id="driver" src="driver.jpg" class="pictureRightBox">
         </div>
     </div>
 </div>
-<div class="videoBox">
-
-</div>
-
 </body>
 </html>
+
